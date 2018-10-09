@@ -12,9 +12,11 @@
 #include "glew.h"
 #endif
 
+// MAC
 // #include <GL/gl.h>
 // #include <GL/glu.h>
 // #include "glut.h"
+// Linux
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 #include <GLUT/glut.h>
