@@ -1,4 +1,4 @@
-sample:		sample1.cpp
-		g++  -o  sample    sample1.cpp    -lm  -framework  OpenGL  -framework  GLUT 
-# sample:		sample.cpp
-# 		g++ -o sample  sample.cpp  -lGL  -lGLU  libglut.so  -lm
+texturing:		texturing.cpp
+		g++  -o  texturing    texturing.cpp    -lm  -framework  OpenGL  -framework  GLUT 
+# texturing:		texturing.cpp
+# 		g++ -o texturing  texturing.cpp  -lGL  -lGLU  libglut.so  -lm
