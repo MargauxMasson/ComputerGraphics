@@ -73,9 +73,9 @@ MjbSphere( float radius, int slices, int stacks )
 			p->nz = z;
 			if( Distort )
 			{
-				glRotatef( 360.*Time, 0., 1., 0. );			
-				p->s = ( lng + M_PI ) / ( 2.*M_PI );
-				p->t = ( lat + M_PI/2. ) / M_PI ;
+				// glRotatef( 360.*Time/10, 0., 1., 0. );			
+				p->s = ( lng+ Time + M_PI )  / ( 2.*M_PI );
+				p->t = ( lat+ Time + M_PI/2. ) / M_PI ;
 			}
 			else
 			{
