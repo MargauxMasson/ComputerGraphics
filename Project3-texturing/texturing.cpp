@@ -241,9 +241,9 @@ void Animate()
 {
     // put animation stuff in here -- change some global variables
     // for Display( ) to find:
-    int ms = glutGet( GLUT_ELAPSED_TIME );
+    int ms = glutGet(GLUT_ELAPSED_TIME);
     ms %= MS_PER_CYCLE;
-    Time = (float)ms / (float)MS_PER_CYCLE;		// [0.,1.)
+    Time = (float)ms / (float)MS_PER_CYCLE; // [0.,1.)
 
     // force a call to Display( ) next time it is convenient:
 
@@ -358,6 +358,10 @@ void Display()
         // the blob-ish object
         glDisable(GL_TEXTURE_2D);
         glColor3f(0.5, 0.5, 0.5);
+    }
+    if (Distort)
+    {
+        glRotatef(360*Time, 0., 1., 0.);
     }
     MjbSphere(2, 50, 50);
     glEnd();
@@ -866,16 +870,16 @@ void MouseMotion(int x, int y)
 
 void Reset()
 {
-	ActiveButton = 0;
-	AxesOn = 1;
-	DebugOn = 0;
-	DepthBufferOn = 1;
-	DepthFightingOn = 0;
-	DepthCueOn = 0;
-	Scale = 1.0;
-	WhichColor = WHITE;
-	WhichProjection = PERSP;
-	Xrot = Yrot = 0.;
+    ActiveButton = 0;
+    AxesOn = 1;
+    DebugOn = 0;
+    DepthBufferOn = 1;
+    DepthFightingOn = 0;
+    DepthCueOn = 0;
+    Scale = 1.0;
+    WhichColor = WHITE;
+    WhichProjection = PERSP;
+    Xrot = Yrot = 0.;
 }
 
 // called when user resizes the window:
