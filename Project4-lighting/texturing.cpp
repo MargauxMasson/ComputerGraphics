@@ -161,6 +161,7 @@ bool LIGHT0On = false;
 bool LIGHT1On = false;
 bool LIGHT2On = false;
 bool LIGHT3On = false;
+bool LIGHT4On = false;
 bool LIGHTING = false;
 int translate;
 
@@ -363,17 +364,17 @@ void Display()
     else
         glDisable(GL_LIGHTING);
 
-    // Smooth Torus 
+    // Smooth Torus
     glShadeModel(GL_SMOOTH);
     // glShadeModel(GL_FLAT);
-    glColor3f(0, 1., 0);
+    glColor3f(1, 1, 0);
     glTranslatef(0, 0, 0);
     SetMaterial(0, 1, 0, 5);
-    // SetSpotLight(GL_LIGHT5,10,10,10,-1,-1,-1,1,1,1);
+
     glutSolidTorus(3,
                    10,
                    64, 64);
-    // Flat Torus 
+    // Flat Torus
     glShadeModel(GL_FLAT);
     glColor3f(1, 0, 0);
     glTranslatef(0, 0, 14);
@@ -381,6 +382,23 @@ void Display()
     glutSolidTorus(3,
                    10,
                    64, 64);
+
+    // Square
+    glPushMatrix();
+    // glShadeModel(GL_SMOOTH);
+    glColor3f(0, 1, 1);
+    glTranslatef(0, 0, -25);
+    SetMaterial(0, 1, 0, 2);
+    if (LIGHT2On)
+    {
+        SetSpotLight(GL_LIGHT2, 10, 10, 10, -1, -1, -1, 0, 1, 1);
+    }
+    else
+    {
+        glDisable(GL_LIGHT2);
+    }
+    glutSolidCube(6);
+    glPopMatrix();
 
     // Red Sphere
     glPushMatrix();
@@ -399,9 +417,9 @@ void Display()
     MjbSphere(1.5, 50, 50);
     glPopMatrix();
 
-    // Red Sphere2
+    // Blue Sphere
     glPushMatrix();
-    glColor3f(1, 0, 0);
+    glColor3f(0, 0, 1);
     SetMaterial(0, 1, 0, 2);
     glTranslatef(0, 0, -14.0);
     glTranslatef(10, 10.0, -10.0);
@@ -410,65 +428,46 @@ void Display()
     if (LIGHT1On)
     {
         glEnable(GL_LIGHT1);
-        SetPointLight(GL_LIGHT1, 2, 2, 2, 0,0,1 );
+        SetPointLight(GL_LIGHT1, 2, 2, 2, 0, 0, 1);
     }
     else
         glDisable(GL_LIGHT1);
     MjbSphere(1.5, 50, 50);
     glPopMatrix();
 
-    // Blue sphere
-    // glPushMatrix();
-    // glColor3f(0, 0, 1);
-    // SetMaterial(0, 1, 0, 1);
-    // glTranslatef(-12, -12.0, 0.0);
-    // glRotatef((float)Time * 5000, 0, 1, 0);
-    // glTranslatef(12, 12.0, 0.0);
-    // if (LIGHT1On)
-    // {
-    //     glEnable(GL_LIGHT1);
-    //     SetPointLight(GL_LIGHT1, 5, 5, 5, 0, 0, 1);
-    // }
-    // else
-    //     glDisable(GL_LIGHT1);
-    // // SetSpotLight(GL_LIGHT4,5,5,5,-1,-1,-1,1,0,0);
-    // MjbSphere(1.5, 50, 50);
-    // glPopMatrix();
-
-    // Pink sphere
-    // glPushMatrix();
-    // glColor3f(1, 0, 1);
-    // SetMaterial(0, 1, 0, 1);
-    // glTranslatef(12, -12.0, 0.0);
-    // glRotatef((float)Time * 5000, 0, 1, 0);
-    // glTranslatef(-12, 12.0, 0.0);
-    // if (LIGHT2On)
-    // {
-    //     glEnable(GL_LIGHT2);
-    //     SetPointLight(GL_LIGHT2, 5, 5, 5, 1, 0, 1);
-    // }
-    // else
-    //     glDisable(GL_LIGHT2);
-    // // SetSpotLight(GL_LIGHT4,5,5,5,-1,-1,-1,1,0,0);m
-    // MjbSphere(1.5, 50, 50);
-    // glPopMatrix();
-
-    // Yellow Sphere
-    // glPushMatrix();
-    // glColor3f(1, 1, 0);
-    // SetMaterial(0, 1, 0, 1);
-    // glTranslatef(12, 12.0, 0.0);
-    // glRotatef((float)Time * 5000, 1, 0, 0);
-    // glTranslatef(-12, -12.0, 0.0);
-    // if (LIGHT3On)
-    // {
-    //     glEnable(GL_LIGHT3);
-    //     SetPointLight(GL_LIGHT3, 2, 2, 2, 1, 1, 0);
-    // }
-    // else
-    //     glDisable(GL_LIGHT3);
-    // MjbSphere(1.5, 50, 50);
-    // glPopMatrix();
+    // Sphere with texture
+    glPushMatrix();
+    glShadeModel(GL_SMOOTH);
+    glColor3f(1, 1, 1);
+    glTranslatef(0, 0, 15);
+    SetMaterial(0, 1, 0, 2);
+    if (isTexture)
+    {
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, tex);
+        MjbSphere(3, 50, 50);
+        glDisable(GL_TEXTURE_2D);
+    }
+    else
+    {
+        // the blob-ish object
+        glDisable(GL_TEXTURE_2D);
+        glColor3f(0.5, 0.5, 0.5);
+        MjbSphere(3, 50, 50);
+    }
+    if (LIGHT3On)
+    {
+        SetSpotLight(GL_LIGHT3, 10, 10, 10, -1, -1, -1, 1, 1, 1);
+    }
+    else
+    {
+        glDisable(GL_LIGHT3);
+    }
+    // glEnable(GL_TEXTURE_2D);
+    // glBindTexture(GL_TEXTURE_2D, tex);
+    // MjbSphere(3, 50, 50);
+    // glDisable(GL_TEXTURE_2D);
+    glPopMatrix();
 
     // possibly draw the axes:
     if (AxesOn != 0)
@@ -892,10 +891,10 @@ void Keyboard(unsigned char c, int x, int y)
         LIGHT2On = !LIGHT2On;
         break;
     case '3':
-        LIGHT2On = !LIGHT2On;
+        LIGHT3On = !LIGHT3On;
         break;
     case '4':
-        LIGHT3On = !LIGHT3On;
+        LIGHT4On = !LIGHT4On;
         break;
 
     // case '5':
