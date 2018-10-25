@@ -399,6 +399,12 @@ void Display()
     }
     glutSolidCube(6);
     glPopMatrix();
+    // Small sphere attached to the cube
+    glPushMatrix();
+    glColor3f(0, 1, 1);
+    glTranslatef(0, 0, -21.5);
+    MjbSphere(1, 50, 50);
+    glPopMatrix();
 
     // Red Sphere
     glPushMatrix();
