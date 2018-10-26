@@ -376,7 +376,7 @@ void Display()
                    64, 64);
     // Flat Torus
     glShadeModel(GL_FLAT);
-    glColor3f(1, 0, 0);
+    glColor3f(0, 1, 0);
     glTranslatef(0, 0, 14);
     SetMaterial(0, 1, 0, 5);
     glutSolidTorus(3,
@@ -386,12 +386,12 @@ void Display()
     // Square
     glPushMatrix();
     // glShadeModel(GL_SMOOTH);
-    glColor3f(0, 1, 1);
+    glColor3f(0.5, 0.2, 1);
     glTranslatef(0, 0, -25);
     SetMaterial(0, 1, 0, 2);
     if (LIGHT2On)
     {
-        SetSpotLight(GL_LIGHT2, 10, 10, 10, -1, -1, -1, 0, 1, 1);
+        SetSpotLight(GL_LIGHT2, 20, 20, 20, -1, -1, -1, 0.5, 0.2, 1);
     }
     else
     {
@@ -401,7 +401,7 @@ void Display()
     glPopMatrix();
     // Small sphere attached to the cube
     glPushMatrix();
-    glColor3f(0, 1, 1);
+    glColor3f(0.5, 0, 1);
     glTranslatef(0, 0, -21.5);
     MjbSphere(1, 50, 50);
     glPopMatrix();
@@ -422,6 +422,14 @@ void Display()
         glDisable(GL_LIGHT0);
     MjbSphere(1.5, 50, 50);
     glPopMatrix();
+    // Small sphere attached to the red sphere
+    glPushMatrix();
+    glColor3f(1, 0, 0);
+    glTranslatef(-12, -12.0, 2.8);
+    glRotatef((float)Time * 4000, 1, 0, 0);
+    glTranslatef(12, 12.0, 2.8);
+    MjbSphere(0.5, 50, 50);
+    glPopMatrix();
 
     // Blue Sphere
     glPushMatrix();
@@ -439,6 +447,15 @@ void Display()
     else
         glDisable(GL_LIGHT1);
     MjbSphere(1.5, 50, 50);
+    glPopMatrix();
+        // Small sphere attached to the red sphere
+    glPushMatrix();
+    glColor3f(0, 0, 1);
+    glTranslatef(0, 0, -14.0);
+    glTranslatef(10, 10.0, -10.8);
+    glRotatef((float)Time * 4000, 1, 0, 0);
+    glTranslatef(-10, -10.0, -10.8);
+    MjbSphere(0.5, 50, 50);
     glPopMatrix();
 
     // Sphere with texture
@@ -469,10 +486,6 @@ void Display()
     {
         glDisable(GL_LIGHT3);
     }
-    // glEnable(GL_TEXTURE_2D);
-    // glBindTexture(GL_TEXTURE_2D, tex);
-    // MjbSphere(3, 50, 50);
-    // glDisable(GL_TEXTURE_2D);
     glPopMatrix();
 
     // possibly draw the axes:
