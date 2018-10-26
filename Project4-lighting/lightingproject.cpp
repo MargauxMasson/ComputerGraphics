@@ -26,8 +26,8 @@ float Time;
 
 // title of these windows:
 
-const char *WINDOWTITLE = {"Project 3 - Texturing"};
-const char *GLUITITLE = {"Texturing"};
+const char *WINDOWTITLE = {"Project 3 - Lighting"};
+const char *GLUITITLE = {"Lighting"};
 
 // what the glui package defines as true and false:
 
@@ -40,7 +40,7 @@ const int GLUIFALSE = {false};
 
 // initial window size:
 
-const int INIT_WINDOW_SIZE = {600};
+const int INIT_WINDOW_SIZE = {2000};
 
 // size of the box:
 
@@ -329,7 +329,7 @@ void Display()
     glLoadIdentity();
 
     // set the eye position, look-at position, and up-vector:
-    gluLookAt(0, 0, 40, 0., 0., 0., 0., 1., 0.);
+    gluLookAt(50, 40, 30, 0., 0., 0., 0., 1., 0.);
 
     // rotate the scene:
 
@@ -366,7 +366,6 @@ void Display()
 
     // Smooth Torus
     glShadeModel(GL_SMOOTH);
-    // glShadeModel(GL_FLAT);
     glColor3f(1, 1, 0);
     glTranslatef(0, 0, 0);
     SetMaterial(0, 1, 0, 5);
@@ -385,7 +384,6 @@ void Display()
 
     // Square
     glPushMatrix();
-    // glShadeModel(GL_SMOOTH);
     glColor3f(0.5, 0.2, 1);
     glTranslatef(0, 0, -25);
     SetMaterial(0, 1, 0, 2);
