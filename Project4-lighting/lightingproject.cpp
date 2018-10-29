@@ -377,12 +377,12 @@ void Display()
     glShadeModel(GL_FLAT);
     glColor3f(0, 1, 0);
     glTranslatef(0, 0, 14);
-    SetMaterial(0, 1, 0, 5);
+    SetMaterial(0, 1, 0, 1);
     glutSolidTorus(3,
                    10,
                    64, 64);
 
-    // Square
+    // Cube
     glPushMatrix();
     glColor3f(0.5, 0.2, 1);
     glTranslatef(0, 0, -25);
