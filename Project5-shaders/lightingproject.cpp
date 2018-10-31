@@ -373,13 +373,34 @@ void Display()
 
     glEnable(GL_NORMALIZE);
 
-    Pattern->Use();
-    Pattern->SetUniformVariable("uTime", Time);
+
+    // Pattern->Use();
+    // Pattern->SetUniformVariable("uTime", Time);
+    // glCallList(BoxList);
+    // Pattern->Use(0);
+    float S0, T0;
+    float Ds, Dt;
+    float V0, V1, V2;
+    float ColorR, ColorG, ColorB;
+    Pattern->Use( );
+    Pattern->SetUniformVariable( "uS0", S0);
+    Pattern->SetUniformVariable( "uT0", T0 );
+    Pattern->SetUniformVariable( "uDs", Ds);
+    Pattern->SetUniformVariable( "uDt", Dt );
+    Pattern->SetUniformVariable( "uColor", ColorR, ColorG, ColorB );
+    // glBegin( GL_TRIANGLES );
+    //     Pattern->SetAttributeVariable( "aV0", V0 ); // don’t need for Project #5
+    //     glVertex3f( x0, y0, z0 );
+    //     Pattern->SetAttributeVariable( "aV1", V1 ); // don’t need for Project #5
+    //     glVertex3f( x1, y1, z1 );
+    //     Pattern->SetAttributeVariable( "aV2", V2 ); // don’t need for Project #5
+    //     glVertex3f( x2, y2, z2 );
+    // glEnd( );
     glCallList(BoxList);
-    Pattern->Use(0);
+    Pattern->Use( 0 ); // go back to fixed-function OpenGL
 
     // draw the current object:
-    glCallList(BoxList);
+    // glCallList(BoxList);
 
     if (DepthFightingOn != 0)
     {
@@ -756,11 +777,10 @@ void InitLists()
     glutSetWindow(MainWindow);
 
     // create the object:
-    // funcs myfuncs;
     BoxList = glGenLists(1);
     glNewList(BoxList, GL_COMPILE);
-    // Random Objects placed here (polyStack)
     MjbSphere(5, 64, 64);
+    // glutSolidCube(5);
     glEndList();
 
     // create the axes:
