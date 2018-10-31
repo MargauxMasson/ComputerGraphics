@@ -1,3 +1,43 @@
 
-0:18(2): error: assignment to read-only variable 'uColor'
+0:22(19): error: `uTime' undeclared
+0:22(13): error: operands to arithmetic operators must be numeric
+0:22(25): error: `uPat' undeclared
+0:22(13): error: operands to arithmetic operators must be numeric
+0:22(13): error: operands to arithmetic operators must be numeric
+0:22(9): error: no matching function for call to `sin(error)'; candidates are:
+0:22(9): error:    float sin(float)
+0:22(9): error:    vec2 sin(vec2)
+0:22(9): error:    vec3 sin(vec3)
+0:22(9): error:    vec4 sin(vec4)
+0:22(5): error: no matching function for call to `abs(error)'; candidates are:
+0:22(5): error:    float abs(float)
+0:22(5): error:    vec2 abs(vec2)
+0:22(5): error:    vec3 abs(vec3)
+0:22(5): error:    vec4 abs(vec4)
+0:22(5): error:    int abs(int)
+0:22(5): error:    ivec2 abs(ivec2)
+0:22(5): error:    ivec3 abs(ivec3)
+0:22(5): error:    ivec4 abs(ivec4)
+0:22(5): error: operands to relational operators must be scalar and numeric
+0:22(5): error: LHS of `&&' must be scalar boolean
+0:22(59): error: `uTime' undeclared
+0:22(53): error: operands to arithmetic operators must be numeric
+0:22(65): error: `uPat' undeclared
+0:22(53): error: operands to arithmetic operators must be numeric
+0:22(53): error: operands to arithmetic operators must be numeric
+0:22(49): error: no matching function for call to `cos(error)'; candidates are:
+0:22(49): error:    float cos(float)
+0:22(49): error:    vec2 cos(vec2)
+0:22(49): error:    vec3 cos(vec3)
+0:22(49): error:    vec4 cos(vec4)
+0:22(45): error: no matching function for call to `abs(error)'; candidates are:
+0:22(45): error:    float abs(float)
+0:22(45): error:    vec2 abs(vec2)
+0:22(45): error:    vec3 abs(vec3)
+0:22(45): error:    vec4 abs(vec4)
+0:22(45): error:    int abs(int)
+0:22(45): error:    ivec2 abs(ivec2)
+0:22(45): error:    ivec3 abs(ivec3)
+0:22(45): error:    ivec4 abs(ivec4)
+0:22(45): error: operands to relational operators must be scalar and numeric
 

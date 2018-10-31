@@ -7,8 +7,7 @@ const vec3 LIGHTPOSITION = vec3( 5., 5., 0. );
 
 void main( )
 {
-	// vST = gl_MultiTexCoord0.st;
-	// vec3 vert = gl_Vertex.xyz;
+	vST = gl_MultiTexCoord0.st;
 
 	vec4 ECposition = gl_ModelViewMatrix * gl_Vertex;
 	vN = normalize( gl_NormalMatrix * gl_Normal ); // normal vector

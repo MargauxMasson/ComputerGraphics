@@ -4,6 +4,11 @@ uniform float uKa, uKd, uKs; // coefficients of each type of lighting
 uniform vec3 uColor; // object color
 uniform vec3 uSpecularColor; // light color
 uniform float uShininess; // specular exponent
+uniform float uSize; 
+uniform float uTime; 
+uniform float uPat; 
+uniform float uS0;
+uniform float uT0; 
 
 in vec2 vST; // texture cords
 in vec3 vN; // normal vector
@@ -15,7 +20,17 @@ void main( ) {
 	vec3 Light = normalize(vL);
 	vec3 Eye = normalize(vE);
 
-	vec3 ambient = uKa * uColor;
+	// vec3 ambient = uKa * uColor;
+
+	vec3 myColor = uColor;
+	// if( uS0-uSize/2. <= vST.s && vST.s <= uS0+uSize/2. && uT0-uSize/2. <= vST.t && vST.t <= uT0+uSize/2. )
+	// if(abs(sin(vST.s*100*uTime)) > 0.5 && abs(cos(vST.t*100*uTime)) > 0.5)
+	if(abs(sin(vST.s)) > 0.5 && abs(cos(vST.t)) > 0.5)
+	{
+		myColor = vec3( 1., 0., 0. );
+	}
+	vec3 ambient = uKa * myColor;
+
 
 	float d = max( dot(Normal,Light), 0. ); // only do diffuse if the light can see the point
 	vec3 diffuse = uKd * d * uColor;

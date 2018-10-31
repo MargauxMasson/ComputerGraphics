@@ -389,8 +389,8 @@ void Display()
     float pat = 0;
 
     Pattern->Use( );
-    // Pattern->SetUniformVariable( "uS0", S0);
-    // Pattern->SetUniformVariable( "uT0", T0 );
+    Pattern->SetUniformVariable( "uS0", 0);
+    Pattern->SetUniformVariable( "uT0", 0);
     // Pattern->SetUniformVariable( "uDs", Ds);
     // Pattern->SetUniformVariable( "uDt", Dt );
     Pattern->SetUniformVariable( "uColor", ColorR, ColorG, ColorB );
@@ -405,9 +405,7 @@ void Display()
 	Pattern->SetUniformVariable((char *)"uKs",(float).25);
 
 	Pattern->SetUniformVariable((char *)"uShininess",(float)1);
-	Pattern->SetUniformVariable((char *)"uS0",1);
-	Pattern->SetUniformVariable((char *)"uT0",1);
-	Pattern->SetUniformVariable((char *)"uSize",(float)1);
+	Pattern->SetUniformVariable((char *)"uSize",(float)8);
     MjbSphere(8, 64, 64);
     Pattern->Use( 0 ); // go back to fixed-function OpenGL
 
