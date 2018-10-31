@@ -398,7 +398,7 @@ void Display()
     // Pattern->SetUniformVariable( "uT0", T0 );
     // Pattern->SetUniformVariable( "uDs", Ds);
     // Pattern->SetUniformVariable( "uDt", Dt );
-    // Pattern->SetUniformVariable( "uColor", ColorR, ColorG, ColorB );
+    Pattern->SetUniformVariable( "uColor", ColorR, ColorG, ColorB );
     Pattern->SetUniformVariable((char *)"uTime",(float)(Time));
 	Pattern->SetUniformVariable((char *)"uDist",(float)(dist));
 	Pattern->SetUniformVariable((char *)"uPat",(float)(pat));

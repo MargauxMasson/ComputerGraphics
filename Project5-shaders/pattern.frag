@@ -15,14 +15,10 @@ void main( ) {
 	vec3 Light = normalize(vL);
 	vec3 Eye = normalize(vE);
 
-	// uColor =  vec3(0,1,1);
-	vec3 myColor = vec3(0,1,1);;
-
-	vec3 ambient = uKa * myColor;
-
+	vec3 ambient = uKa * uColor;
 
 	float d = max( dot(Normal,Light), 0. ); // only do diffuse if the light can see the point
-	vec3 diffuse = uKd * d * myColor;
+	vec3 diffuse = uKd * d * uColor;
 
 	float s = 0.;
 	if( dot(Normal,Light) > 0. ) // only do specular if the light can see the point
