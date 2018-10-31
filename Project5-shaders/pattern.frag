@@ -19,14 +19,12 @@ void main( ) {
 
 	float d = max( dot(Normal,Light), 0. ); // only do diffuse if the light can see the point
 	vec3 diffuse = uKd * d * uColor;
-
 	float s = 0.;
 	if( dot(Normal,Light) > 0. ) // only do specular if the light can see the point
 	{
 	vec3 ref = normalize( reflect( -Light, Normal ) );
 	s = pow( max( dot(Eye,ref),0. ), uShininess );
 	}
-	// vec3 specular = uKs * s * uSpecularColor;
-	vec3 specular = uKs * s * vec3(1,1,1);
+	vec3 specular = uKs * s * uSpecularColor;
 	gl_FragColor = vec4( ambient + diffuse + specular, 1. );
 }

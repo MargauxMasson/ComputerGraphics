@@ -385,13 +385,8 @@ void Display()
     ColorB = 0.5;
     ColorG = 0.8;
     ColorR = 0;
-    float x0, y0, z0;
-    float x1, y1, z1;
-    float x2, y2, z2;
     float dist = 0;
     float pat = 0;
-
-    x0 = 0;
 
     Pattern->Use( );
     // Pattern->SetUniformVariable( "uS0", S0);
@@ -399,26 +394,21 @@ void Display()
     // Pattern->SetUniformVariable( "uDs", Ds);
     // Pattern->SetUniformVariable( "uDt", Dt );
     Pattern->SetUniformVariable( "uColor", ColorR, ColorG, ColorB );
+    Pattern->SetUniformVariable( "uSpecularColor", 1, 1, 1 );
     Pattern->SetUniformVariable((char *)"uTime",(float)(Time));
 	Pattern->SetUniformVariable((char *)"uDist",(float)(dist));
 	Pattern->SetUniformVariable((char *)"uPat",(float)(pat));
+    
+    // coefficients of each type of lighting
 	Pattern->SetUniformVariable((char *)"uKa",(float)0.25);
-	Pattern->SetUniformVariable((char *)"uKd",(float).5);
+	Pattern->SetUniformVariable((char *)"uKd",(float).8);
 	Pattern->SetUniformVariable((char *)"uKs",(float).25);
+
 	Pattern->SetUniformVariable((char *)"uShininess",(float)1);
 	Pattern->SetUniformVariable((char *)"uS0",1);
 	Pattern->SetUniformVariable((char *)"uT0",1);
 	Pattern->SetUniformVariable((char *)"uSize",(float)1);
-    // glBegin( GL_TRIANGLES );
-    //     Pattern->SetAttributeVariable( "aV0", V0 ); // don’t need for Project #5
-    //     glVertex3f( 0, 0, 0 );
-    //     Pattern->SetAttributeVariable( "aV1", V1 ); // don’t need for Project #5
-    //     glVertex3f( 1, 1, 1 );
-    //     Pattern->SetAttributeVariable( "aV2", V2 ); // don’t need for Project #5
-    //     glVertex3f( 2, 2, 2 );
-    // glEnd( );
-    // glCallList(BoxList);
-    MjbSphere(5, 64, 64);
+    MjbSphere(8, 64, 64);
     Pattern->Use( 0 ); // go back to fixed-function OpenGL
 
     // draw the current object:
