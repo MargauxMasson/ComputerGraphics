@@ -394,15 +394,15 @@ void Display()
     // Pattern->SetUniformVariable( "uDs", Ds);
     // Pattern->SetUniformVariable( "uDt", Dt );
     Pattern->SetUniformVariable( "uColor", ColorR, ColorG, ColorB );
-    Pattern->SetUniformVariable( "uSpecularColor", 1, 1, 1 );
+    Pattern->SetUniformVariable( "uSpecularColor", 0, 0, 0 );
     Pattern->SetUniformVariable((char *)"uTime",(float)(Time));
 	Pattern->SetUniformVariable((char *)"uDist",(float)(dist));
 	Pattern->SetUniformVariable((char *)"uPat",(float)(pat));
     
     // coefficients of each type of lighting
-	Pattern->SetUniformVariable((char *)"uKa",(float)0.25);
+	Pattern->SetUniformVariable((char *)"uKa",(float)1.);
 	Pattern->SetUniformVariable((char *)"uKd",(float).8);
-	Pattern->SetUniformVariable((char *)"uKs",(float).25);
+	Pattern->SetUniformVariable((char *)"uKs",(float).2);
 
 	Pattern->SetUniformVariable((char *)"uShininess",(float)1);
 	Pattern->SetUniformVariable((char *)"uSize",(float)8);

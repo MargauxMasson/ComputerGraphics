@@ -25,7 +25,7 @@ void main( ) {
 	vec3 myColor = uColor;
 	// if( uS0-uSize/2. <= vST.s && vST.s <= uS0+uSize/2. && uT0-uSize/2. <= vST.t && vST.t <= uT0+uSize/2. )
 	// if(abs(sin(vST.s*100*uTime)) > 0.5 && abs(cos(vST.t*100*uTime)) > 0.5)
-	if(abs(sin(vST.s)) > 0.5 && abs(cos(vST.t)) > 0.5)
+	if(abs(sin(vST.s)) > 0.2 && abs(cos(vST.t)) > 0.2 && abs(cos(vST.t)) > 0.4 && abs(sin(vST.t)) > 0.4)
 	{
 		myColor = vec3( 1., 0., 0. );
 	}
