@@ -382,9 +382,9 @@ void Display()
     float Ds, Dt;
     float V0, V1, V2;
     float ColorR, ColorG, ColorB;
-    ColorB = 0.5;
+    ColorB = 0;
     ColorG = 0.8;
-    ColorR = 0;
+    ColorR = 0.25;
     float dist = 0;
     float pat = 0;
 
@@ -406,7 +406,8 @@ void Display()
 
 	Pattern->SetUniformVariable((char *)"uShininess",(float)1);
 	Pattern->SetUniformVariable((char *)"uSize",(float)8);
-    MjbSphere(8, 64, 64);
+    // MjbSphere(8, 64, 64);
+    glutSolidTeapot(10);
     Pattern->Use( 0 ); // go back to fixed-function OpenGL
 
     // draw the current object:
