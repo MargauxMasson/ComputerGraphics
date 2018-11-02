@@ -823,28 +823,29 @@ void Keyboard(unsigned char c, int x, int y)
     case 'O':
         WhichProjection = ORTHO;
         break;
+    case 'F':
+        Frozen = false;
+        Animation = true;
+        Distort = false;
+        break;
     case 'b':
     case 'B':
-        printf("hello %i", Animation);
-        Animation = !Animation;
-        break;
-    case 'e':
-    case 'E':
-        // Animation = !Animation;
+        Animation = true;
+        Distort = true;
         break;
     case 'p':
     case 'P':
         WhichProjection = PERSP;
         break;
-
-    case 'd':
-    case 'D':
-        
-        Distort = !Distort;
+    case 'V':
+        Frozen = false;
+        Animation = false;
+        Distort = true;
         break;
     case 'f':
-    case 'F':
-        Frozen = !Frozen;
+        Frozen = true;
+        Animation = false;
+        Distort = false;
         break;
 
     case 'q':
