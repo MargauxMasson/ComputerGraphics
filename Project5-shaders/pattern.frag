@@ -26,10 +26,11 @@ void main( ) {
 	// if( uS0-uSize/2. <= vST.s && vST.s <= uS0+uSize/2. && uT0-uSize/2. <= vST.t && vST.t <= uT0+uSize/2. )
 	// if(abs(sin(vST.s*100*uTime)) > 0.5 && abs(cos(vST.t*100*uTime)) > 0.5)
 	// if(abs(sin(vST.s)) > 0.2 && abs(cos(vST.t)) > 0.2 && abs(cos(vST.t)) > 0.4 && abs(sin(vST.t)) > 0.4)
-	if(abs(vST.t*uTime) > 0.2 && abs(vST.t*uTime) < 0.8 )
+	// if(vST.t*uTime > 0.5 && vST.s*uTime < 0.5 && vST.s*uTime*10 > 0.5 && vST.t/10*uTime < 0.5)
+	if(vST.t + fract(sin(uTime)) > 0.8 && vST.s + fract(sin(uTime)) > 0.8)
 	{
 		myColor = vec3( 1., 0., 0. );
-	}
+	} 
 	vec3 ambient = uKa * myColor;
 
 
