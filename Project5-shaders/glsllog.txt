@@ -1,6 +1,3 @@
 
-0:33(31): error: `vvST' undeclared
-0:33(31): error: type mismatch
-0:33(31): error: operands to arithmetic operators must be numeric
-0:33(12): error: cannot construct `vec3' from a non-numeric data type
+0:39(6): error: if-statement condition must be scalar boolean
 

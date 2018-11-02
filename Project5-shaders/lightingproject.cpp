@@ -20,6 +20,7 @@
 
 GLSLProgram *Pattern;
 float Time;
+
 // #include <OpenGL/gl.h>
 // #include <OpenGL/glu.h>
 // #include <GLUT/glut.h>
@@ -185,6 +186,7 @@ void DoDepthBufferMenu(int);
 void DoDepthFightingMenu(int);
 void DoDepthMenu(int);
 void DoDistort(int);
+void DoAnimation(int);
 void DoTexture(int);
 void DoDebugMenu(int);
 void DoMainMenu(int);
@@ -252,7 +254,7 @@ int main(int argc, char *argv[])
 
 void Animate()
 {
-    if (!Frozen)
+    if (!Frozen || Animation)
     {
         // put animation stuff in here -- change some global variables
         // for Display( ) to find:
@@ -386,7 +388,6 @@ void Display()
     ColorG = 0.8;
     ColorR = 0.25;
     float distortion = 0;
-    float pat = 0;
 
     Pattern->Use( );
     Pattern->SetUniformVariable( "uS0", 0);
@@ -397,7 +398,8 @@ void Display()
     Pattern->SetUniformVariable( "uSpecularColor", 0, 0, 0 );
     Pattern->SetUniformVariable((char *)"uTime",(float)(Time));
 	Pattern->SetUniformVariable((char *)"uDistortion",(float)(Distort));
-	Pattern->SetUniformVariable((char *)"uPat",(float)(pat));
+	Pattern->SetUniformVariable((char *)"uAnimation",(bool)(Animation));
+    
     
     // coefficients of each type of lighting
 	Pattern->SetUniformVariable((char *)"uKa",(float)1.);
@@ -507,6 +509,11 @@ void DoDistort(int id)
 {
     Distort = (bool)id;
 }
+void DoAnimation(int id)
+{
+    Animation = (bool)id;
+}
+
 void DoTexture(int id)
 {
     idTexture = id;
@@ -816,54 +823,30 @@ void Keyboard(unsigned char c, int x, int y)
     case 'O':
         WhichProjection = ORTHO;
         break;
-
+    case 'b':
+    case 'B':
+        printf("hello %i", Animation);
+        Animation = !Animation;
+        break;
+    case 'e':
+    case 'E':
+        // Animation = !Animation;
+        break;
     case 'p':
     case 'P':
         WhichProjection = PERSP;
         break;
-    case 't':
-    case 'T':
-        if (idTexture < 3)
-        {
-            DoTexture(idTexture + 1);
-        }
-        else
-        {
-            DoTexture(0);
-            idTexture = 0;
-        }
-        break;
+
     case 'd':
     case 'D':
+        
         Distort = !Distort;
         break;
     case 'f':
     case 'F':
         Frozen = !Frozen;
         break;
-    case 'l':
-    case 'L':
-        LIGHTING = !LIGHTING;
-        break;
-    case '0':
-        LIGHT0On = !LIGHT0On;
-        break;
-    case '1':
-        LIGHT1On = !LIGHT1On;
-        break;
-    case '2':
-        LIGHT2On = !LIGHT2On;
-        break;
-    case '3':
-        LIGHT3On = !LIGHT3On;
-        break;
-    case '4':
-        LIGHT4On = !LIGHT4On;
-        break;
 
-    // case '5':
-    //     DIR = !DIR;
-    //     break;
     case 'q':
     case 'Q':
     case ESCAPE:

@@ -1,5 +1,5 @@
 bool	Distort;		// global -- true means to distort the texture
-
+bool Animation;
 struct point {
 	float x, y, z;		// coordinates
 	float nx, ny, nz;	// surface normal
