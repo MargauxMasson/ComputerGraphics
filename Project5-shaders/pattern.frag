@@ -23,13 +23,15 @@ void main( ) {
 	// vec3 ambient = uKa * uColor;
 
 	vec3 myColor = uColor;
+	// myColor = vec3( vST.t/10, vST.t/10, vST.t/10);
+	myColor = vec3(uTime, uTime/10, 0.2);
 	// if( uS0-uSize/2. <= vST.s && vST.s <= uS0+uSize/2. && uT0-uSize/2. <= vST.t && vST.t <= uT0+uSize/2. )
 	// if(abs(sin(vST.s*100*uTime)) > 0.5 && abs(cos(vST.t*100*uTime)) > 0.5)
 	// if(abs(sin(vST.s)) > 0.2 && abs(cos(vST.t)) > 0.2 && abs(cos(vST.t)) > 0.4 && abs(sin(vST.t)) > 0.4)
 	// if(vST.t*uTime > 0.5 && vST.s*uTime < 0.5 && vST.s*uTime*10 > 0.5 && vST.t/10*uTime < 0.5)
 	if(vST.t + fract(sin(uTime)) > 0.8 && vST.s + fract(sin(uTime)) > 0.8)
 	{
-		myColor = vec3( 1., 0., 0. );
+		myColor = vec3( vST.s*uTime, vST.s*uTime, uTime );
 	} 
 	vec3 ambient = uKa * myColor;
 

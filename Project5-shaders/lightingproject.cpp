@@ -174,7 +174,7 @@ unsigned char *Texture2 = BmpToTexture("worldtex.bmp", &width, &height);
 unsigned char *Texture3 = BmpToTexture("mars.bmp", &width, &height);
 unsigned char *Texture = Texture1;
 
-#define MS_PER_CYCLE 20000
+#define MS_PER_CYCLE 2000
 // function prototypes:
 
 void Animate();
