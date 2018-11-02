@@ -385,7 +385,7 @@ void Display()
     ColorB = 0;
     ColorG = 0.8;
     ColorR = 0.25;
-    float dist = 0;
+    float distortion = 0;
     float pat = 0;
 
     Pattern->Use( );
@@ -396,7 +396,7 @@ void Display()
     Pattern->SetUniformVariable( "uColor", ColorR, ColorG, ColorB );
     Pattern->SetUniformVariable( "uSpecularColor", 0, 0, 0 );
     Pattern->SetUniformVariable((char *)"uTime",(float)(Time));
-	Pattern->SetUniformVariable((char *)"uDist",(float)(dist));
+	Pattern->SetUniformVariable((char *)"uDistortion",(float)(Distort));
 	Pattern->SetUniformVariable((char *)"uPat",(float)(pat));
     
     // coefficients of each type of lighting
