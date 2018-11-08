@@ -25,9 +25,7 @@ float Time;
 // #include <OpenGL/glu.h>
 // #include <GLUT/glut.h>
 
-#include "bmptotexture.cpp"
 #include "sphere.cpp"
-#include "lighting.cpp"
 
 // title of these windows:
 
@@ -158,22 +156,6 @@ int Xmouse, Ymouse;  // mouse values
 float Xrot, Yrot;    // rotation angles in degrees
 
 bool Frozen = true;
-int width = 1024;
-int height = 512;
-bool isTexture = true;
-int idTexture = 0;
-bool LIGHT0On = false;
-bool LIGHT1On = false;
-bool LIGHT2On = false;
-bool LIGHT3On = false;
-bool LIGHT4On = false;
-bool LIGHTING = false;
-int translate;
-
-unsigned char *Texture1 = BmpToTexture("mercury.bmp", &width, &height);
-unsigned char *Texture2 = BmpToTexture("worldtex.bmp", &width, &height);
-unsigned char *Texture3 = BmpToTexture("mars.bmp", &width, &height);
-unsigned char *Texture = Texture1;
 
 #define MS_PER_CYCLE 2000
 // function prototypes:
@@ -272,20 +254,6 @@ void Animate()
 
 void Display()
 {
-    GLuint tex;
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-    glGenTextures(1, &tex);
-
-    glBindTexture(GL_TEXTURE_2D, tex); // make tex texture current
-    // and set its parameters
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-    glTexImage2D(GL_TEXTURE_2D, 0, 3, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, Texture);
-
     if (DebugOn != 0)
     {
         fprintf(stderr, "Display\n");
@@ -375,11 +343,6 @@ void Display()
 
     glEnable(GL_NORMALIZE);
 
-
-    // Pattern->Use();
-    // Pattern->SetUniformVariable("uTime", Time);
-    // glCallList(BoxList);
-    // Pattern->Use(0);
     float S0, T0;
     float Ds, Dt;
     float V0, V1, V2;
@@ -392,8 +355,7 @@ void Display()
     Pattern->Use( );
     Pattern->SetUniformVariable( "uS0", 0);
     Pattern->SetUniformVariable( "uT0", 0);
-    // Pattern->SetUniformVariable( "uDs", Ds);
-    // Pattern->SetUniformVariable( "uDt", Dt );
+
     Pattern->SetUniformVariable( "uColor", ColorR, ColorG, ColorB );
     Pattern->SetUniformVariable( "uSpecularColor", 0, 0, 0 );
     Pattern->SetUniformVariable((char *)"uTime",(float)(Time));
@@ -512,29 +474,6 @@ void DoDistort(int id)
 void DoAnimation(int id)
 {
     Animation = (bool)id;
-}
-
-void DoTexture(int id)
-{
-    idTexture = id;
-    switch (id)
-    {
-    case 0:
-        Texture = Texture1;
-        isTexture = true;
-        break;
-    case 1:
-        Texture = Texture2;
-        isTexture = true;
-        break;
-    case 2:
-        Texture = Texture3;
-        isTexture = true;
-        break;
-    case 3:
-        isTexture = false;
-        break;
-    }
 }
 
 // main menu callback:
@@ -656,14 +595,7 @@ void InitMenus()
     glutAddMenuEntry("Off", 0);
     glutAddMenuEntry("On", 1);
 
-    int texturemenu = glutCreateMenu(DoTexture);
-    glutAddMenuEntry("Mercury", 0);
-    glutAddMenuEntry("Earth", 1);
-    glutAddMenuEntry("Mars", 2);
-    glutAddMenuEntry("No texture", 3);
-
     int mainmenu = glutCreateMenu(DoMainMenu);
-    glutAddSubMenu("Texture", texturemenu);
     glutAddSubMenu("Distortion", distortmenu);
     glutAddSubMenu("Axes", axesmenu);
     glutAddSubMenu("Colors", colormenu);
