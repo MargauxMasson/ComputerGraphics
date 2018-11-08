@@ -22,10 +22,15 @@ void main( )
 
 	vec3 vert = gl_Vertex.xyz;
 	// vert.x = gl_Vertex.x - vert.x*abs(sin(uTime*10))*uDistortion + vert.x*abs(cos(uTime*20))*uDistortion*fract(abs(sin(uTime*20))*uDistortion);
-	vert.y = gl_Vertex.y + cos(uTime*10)*uDistortion*fract(abs(sin(uTime))*uDistortion)*10;
-	vert.z = gl_Vertex.z + cos(uTime)*uDistortion*fract(abs(sin(uTime))*uDistortion)*5;
+	// vert.y = gl_Vertex.y + cos(uTime*10)*uDistortion*fract(abs(sin(uTime))*uDistortion)*10;
+	// vert.z = vert.z + cos(uTime)*uDistortion*fract(abs(sin(uTime))*uDistortion)*5;
 
-	vert.x = vert.x + vert.z*abs(sin(1000*uTime*uDistortion));
+	// vert.x = vert.x + vert.z*abs(sin(1000*uTime*uDistortion))+ vert.z*abs(sin(1000*uTime*uDistortion))/10;
+	// vert.y =  vert.y + cos(uTime*10)*uDistortion*fract(abs(sin(uTime))*uDistortion)*10 + uDistortion*vert.y + vert.x*abs(sin(1000*uTime*uDistortion));
+	// vert.z = vert.z + vert.x*abs(sin(1000*uTime*uDistortion)) + cos(uTime)*uDistortion*fract(abs(sin(uTime))*uDistortion)*5;
+	vert.x = vert.x + vert.x*5*uDistortion*sin(uTime) - vert.x*3*uDistortion*cos(uTime) + vert.z*abs(sin(1000*uTime*uDistortion));
+	vert.y =  vert.y + vert.y*5*uDistortion*sin(uTime) - vert.y*3*uDistortion*cos(uTime);
+	vert.z = vert.z + vert.z*5*uDistortion*sin(uTime) - vert.z*3*uDistortion*cos(uTime);
 
 	gl_Position = gl_ModelViewProjectionMatrix * vec4( vert, 1. );
 }
