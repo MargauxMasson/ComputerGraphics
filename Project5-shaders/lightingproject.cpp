@@ -824,9 +824,9 @@ void Keyboard(unsigned char c, int x, int y)
         WhichProjection = ORTHO;
         break;
     case 'F':
-        Frozen = true;
+        Frozen = false;
         Animation = true;
-        // Distort = false;
+        Distort = false;
         break;
     case 'b':
     case 'B':
