@@ -21,9 +21,11 @@ void main( )
 	// gl_Position = gl_ModelViewProjectionMatrix *  gl_Vertex;
 
 	vec3 vert = gl_Vertex.xyz;
-	vert.x = gl_Vertex.x - vert.x*abs(sin(uTime*10))*uDistortion + vert.x*abs(cos(uTime*20))*uDistortion*fract(abs(sin(uTime*20))*uDistortion);
+	// vert.x = gl_Vertex.x - vert.x*abs(sin(uTime*10))*uDistortion + vert.x*abs(cos(uTime*20))*uDistortion*fract(abs(sin(uTime*20))*uDistortion);
 	vert.y = gl_Vertex.y + cos(uTime*10)*uDistortion*fract(abs(sin(uTime))*uDistortion)*10;
 	vert.z = gl_Vertex.z + cos(uTime)*uDistortion*fract(abs(sin(uTime))*uDistortion)*5;
+
+	vert.x = vert.x + vert.z*abs(sin(1000*uTime*uDistortion));
 
 	gl_Position = gl_ModelViewProjectionMatrix * vec4( vert, 1. );
 }

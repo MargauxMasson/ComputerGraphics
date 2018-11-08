@@ -31,8 +31,8 @@ float Time;
 
 // title of these windows:
 
-const char *WINDOWTITLE = {"Project 3 - Lighting"};
-const char *GLUITITLE = {"Lighting"};
+const char *WINDOWTITLE = {"Project 4 - Shaders"};
+const char *GLUITITLE = {"Shaders"};
 
 // what the glui package defines as true and false:
 
@@ -157,7 +157,7 @@ int WhichProjection; // ORTHO or PERSP
 int Xmouse, Ymouse;  // mouse values
 float Xrot, Yrot;    // rotation angles in degrees
 
-bool Frozen;
+bool Frozen = true;
 int width = 1024;
 int height = 512;
 bool isTexture = true;
@@ -254,7 +254,7 @@ int main(int argc, char *argv[])
 
 void Animate()
 {
-    if (!Frozen || Animation)
+    if (!Frozen)
     {
         // put animation stuff in here -- change some global variables
         // for Display( ) to find:
@@ -831,6 +831,7 @@ void Keyboard(unsigned char c, int x, int y)
     case 'b':
     case 'B':
         Animation = true;
+        Frozen = false;
         Distort = true;
         break;
     case 'p':
@@ -839,13 +840,13 @@ void Keyboard(unsigned char c, int x, int y)
         break;
     case 'V':
         Frozen = false;
-        Animation = false;
+        // Animation = false;
         Distort = true;
         break;
     case 'f':
-        Frozen = true;
-        Animation = false;
-        Distort = false;
+        Frozen = !Frozen;
+        // Animation = false;
+       // Distort = false;
         break;
 
     case 'q':

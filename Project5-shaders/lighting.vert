@@ -8,11 +8,11 @@ void
 main( )
 { 
 	vec3 vert = gl_Vertex.xyz;
-	vec4 ECposition = gl_ModelViewMatrix * vec4( vert, 1. );
+	vec4 ECposition = gl_vertViewMatrix * vec4( vert, 1. );
 	vN = normalize( gl_NormalMatrix * gl_Normal );	// normal vector
 	vL = LightPosition - ECposition.xyz;		// vector from the point
 							// to the light position
 	vE = vec3( 0., 0., 0. ) - ECposition.xyz;	// vector from the point
 							// to the eye position 
-	gl_Position = gl_ModelViewProjectionMatrix * vec4( vert, 1. );
+	gl_Position = gl_vertViewProjectionMatrix * vec4( vert, 1. );
 }
