@@ -20,16 +20,11 @@
 
 GLSLProgram *Pattern;
 float Time;
-
-// #include <OpenGL/gl.h>
-// #include <OpenGL/glu.h>
-// #include <GLUT/glut.h>
-
 #include "sphere.cpp"
 
 // title of these windows:
 
-const char *WINDOWTITLE = {"Project 4 - Shaders"};
+const char *WINDOWTITLE = {"Project 5 - Shaders"};
 const char *GLUITITLE = {"Shaders"};
 
 // what the glui package defines as true and false:
@@ -591,12 +586,7 @@ void InitMenus()
     glutAddMenuEntry("Orthographic", ORTHO);
     glutAddMenuEntry("Perspective", PERSP);
 
-    int distortmenu = glutCreateMenu(DoDistort);
-    glutAddMenuEntry("Off", 0);
-    glutAddMenuEntry("On", 1);
-
     int mainmenu = glutCreateMenu(DoMainMenu);
-    glutAddSubMenu("Distortion", distortmenu);
     glutAddSubMenu("Axes", axesmenu);
     glutAddSubMenu("Colors", colormenu);
     glutAddSubMenu("Depth Buffer", depthbuffermenu);

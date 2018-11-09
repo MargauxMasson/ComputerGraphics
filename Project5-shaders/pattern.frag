@@ -12,7 +12,6 @@ uniform float uPat;
 uniform float uS0;
 uniform float uT0; 
 
-
 in vec2 vST; // texture cords
 in vec3 vN; // normal vector
 in vec3 vL; // vector from point to light
@@ -31,7 +30,6 @@ void main( ) {
 	} 
 
 	vec3 ambient = uKa * myColor;
-
 
 	float d = max( dot(Normal,Light), 0. ); // only do diffuse if the light can see the point
 	vec3 diffuse = uKd * d * uColor;
