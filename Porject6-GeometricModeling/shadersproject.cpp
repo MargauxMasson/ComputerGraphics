@@ -152,11 +152,28 @@ float Xrot, Yrot;    // rotation angles in degrees
 
 bool Frozen = true;
 
+
+struct Point
+{
+        float x0, y0, z0;       // initial coordinates
+        float x,  y,  z;        // animated coordinates
+};
+
+struct Curve
+{
+        float r, g, b;
+        Point p0, p1, p2, p3;
+};
+
+Curve Curves[10];		// if you are creating a pattern of curves
+Curve Stem;				// if you are not
+
 #define MS_PER_CYCLE 2000
 // function prototypes:
 
 void Animate();
 void Display();
+void bezier(Point, Point, Point, Point, float);
 void DoAxesMenu(int);
 void DoColorMenu(int);
 void DoDepthBufferMenu(int);
@@ -338,8 +355,45 @@ void Display()
 
     glEnable(GL_NORMALIZE);
 
+    struct Point p0;
+	struct Point p1;
+	struct Point p2;
+	struct Point p3;
+	// struct point line[resolution];
+	p0.x = 0;
+	p0.y = 0;
+	p0.z = 0;
+
+	p1.x = 0;
+	p1.y = 1;
+	p1.z = -1;
+
+	p2.x = 0;
+	p2.y = 5;
+	p2.z = 5;    
+    
+	p3.x = 0;
+	p3.y = -5;
+	p3.z = -5;
+
+    bezier(p0, p1, p2, p3, 10);
+    // glLineWidth( 3. );
+    // glColor3f( 0.5, 0, 0 );
+    // glBegin( GL_LINE_STRIP );
+    //     for( int it = 0; it <= 5; it++ )
+    //     {
+    //         float t = (float)it / (float)5;
+    //         float omt = 1.f - t;
+    //         float x = omt*omt*omt*p0.x + 3.f*t*omt*omt*p1.x + 3.f*t*t*omt*p2.x + t*t*t*p3.x;
+    //         float y = omt*omt*omt*p0.y + 3.f*t*omt*omt*p1.y + 3.f*t*t*omt*p2.y + t*t*t*p3.y;
+    //         float z = omt*omt*omt*p0.z + 3.f*t*omt*omt*p1.z + 3.f*t*t*omt*p2.z + t*t*t*p3.z;
+    //         glVertex3f( x, y, z );
+    //     }
+    // glEnd( );
+    // glLineWidth( 1. );
+
     // draw the current object:
-    glCallList(BoxList);
+    // glCallList(BoxList);
 
     if (DepthFightingOn != 0)
     {
@@ -382,6 +436,24 @@ void Display()
     // note: be sure to use glFlush( ) here, not glFinish( ) !
 
     glFlush();
+}
+
+void bezier(struct Point p0, struct Point p1, struct Point p2, struct Point p3, float NUMPOINTS)
+{
+    glLineWidth( 3. );
+    glColor3f( 0.5, 0, 0 );
+    glBegin( GL_LINE_STRIP );
+        for( int it = 0; it <= NUMPOINTS; it++ )
+        {
+            float t = (float)it / (float)NUMPOINTS;
+            float omt = 1.f - t;
+            float x = omt*omt*omt*p0.x + 3.f*t*omt*omt*p1.x + 3.f*t*t*omt*p2.x + t*t*t*p3.x;
+            float y = omt*omt*omt*p0.y + 3.f*t*omt*omt*p1.y + 3.f*t*t*omt*p2.y + t*t*t*p3.y;
+            float z = omt*omt*omt*p0.z + 3.f*t*omt*omt*p1.z + 3.f*t*t*omt*p2.z + t*t*t*p3.z;
+            glVertex3f( x, y, z );
+        }
+    glEnd( );
+    glLineWidth( 1. );
 }
 
 void DoAxesMenu(int id)
@@ -651,6 +723,55 @@ void InitGraphics()
     fprintf(stderr, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 #endif
 }
+
+
+void RotateX( Point *p, float deg, float xc, float yc, float zc ) {
+        float rad = deg * (M_PI/180.f);         // radians
+        float x = p->x0 - xc;
+        float y = p->y0 - yc;
+        float z = p->z0 - zc;
+
+        float xp = x;
+        float yp = y*cos(rad) - z*sin(rad);
+        float zp = y*sin(rad) + z*cos(rad);
+
+        p->x = xp + xc;
+        p->y = yp + yc;
+        p->z = zp + zc;
+}
+
+void RotateY( Point *p, float deg, float xc, float yc, float zc )
+{
+        float rad = deg * (M_PI/180.f);         // radians
+        float x = p->x0 - xc;
+        float y = p->y0 - yc;
+        float z = p->z0 - zc;
+
+        float xp =  x*cos(rad) + z*sin(rad);
+        float yp =  y;
+        float zp = -x*sin(rad) + z*cos(rad);
+
+        p->x = xp + xc;
+        p->y = yp + yc;
+        p->z = zp + zc;
+}
+
+void RotateZ( Point *p, float deg, float xc, float yc, float zc )
+{
+        float rad = deg * (M_PI/180.f);         // radians
+        float x = p->x0 - xc;
+        float y = p->y0 - yc;
+        float z = p->z0 - zc;
+
+        float xp = x*cos(rad) - y*sin(rad);
+        float yp = x*sin(rad) + y*cos(rad);
+        float zp = z;
+
+        p->x = xp + xc;
+        p->y = yp + yc;
+        p->z = zp + zc;
+}
+
 
 // initialize the display lists that will not change:
 // (a display list is a way to store opengl commands in
