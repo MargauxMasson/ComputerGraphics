@@ -173,6 +173,7 @@ Curve Stem;				// if you are not
 
 void Animate();
 void Display();
+Point initiatePoint(Point, float, float, float);
 void bezier(Point, Point, Point, Point, float, float, float, float);
 void DoAxesMenu(int);
 void DoColorMenu(int);
@@ -360,43 +361,15 @@ void Display()
 	struct Point p2;
 	struct Point p3;
 	struct Point p4;
-	// struct point line[resolution];
-	p0.x = 0;
-	p0.y = 0;
-	p0.z = 0;
 
-	p1.x = 0;
-	p1.y = 1;
-	p1.z = -1;
+    p0 = initiatePoint(p0, 0,0,0);
+    p1 = initiatePoint(p1, 0,1,-1);
+    p2 = initiatePoint(p2, 0,5,5);
+    p3 = initiatePoint(p3, 0,-5,-5);
+    p4 = initiatePoint(p4, 0,-10,-10);
 
-	p2.x = 0;
-	p2.y = 5;
-	p2.z = 5;    
-    
-	p3.x = 0;
-	p3.y = -5;
-	p3.z = -5;	
-    
-    p4.x = 0;
-	p4.y = -10;
-	p4.z = -10;
-
-    bezier(p0, p1, p2, p3, 10, 0.5, 0, 0);
+    bezier(p0, p2, p1, p3, 10, 0.5, 0, 0);
     bezier(p0, p1, p2, p4, 20, 0,1,0);
-    // glLineWidth( 3. );
-    // glColor3f( 0.5, 0, 0 );
-    // glBegin( GL_LINE_STRIP );
-    //     for( int it = 0; it <= 5; it++ )
-    //     {
-    //         float t = (float)it / (float)5;
-    //         float omt = 1.f - t;
-    //         float x = omt*omt*omt*p0.x + 3.f*t*omt*omt*p1.x + 3.f*t*t*omt*p2.x + t*t*t*p3.x;
-    //         float y = omt*omt*omt*p0.y + 3.f*t*omt*omt*p1.y + 3.f*t*t*omt*p2.y + t*t*t*p3.y;
-    //         float z = omt*omt*omt*p0.z + 3.f*t*omt*omt*p1.z + 3.f*t*t*omt*p2.z + t*t*t*p3.z;
-    //         glVertex3f( x, y, z );
-    //     }
-    // glEnd( );
-    // glLineWidth( 1. );
 
     // draw the current object:
     // glCallList(BoxList);
@@ -442,6 +415,13 @@ void Display()
     // note: be sure to use glFlush( ) here, not glFinish( ) !
 
     glFlush();
+}
+
+Point initiatePoint(Point p, float x0, float y0, float z0) {
+    p.x = x0;
+	p.y = y0;
+	p.z = z0;
+    return p;
 }
 
 void bezier(struct Point p0, struct Point p1, struct Point p2, struct Point p3, float NUMPOINTS, float r, float g, float b)
