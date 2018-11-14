@@ -12,7 +12,6 @@
 #include "glew.h"
 #endif
 
-#include "glslprogram.h"
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include "glut.h"
@@ -1089,7 +1088,6 @@ void Keyboard(unsigned char c, int x, int y)
     case 'O':
         WhichProjection = ORTHO;
         break;
-   
     case 'c':
     case 'C':
         controlPointsEnable = !controlPointsEnable;
