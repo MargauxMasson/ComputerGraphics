@@ -16,9 +16,9 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include "glut.h"
-#include "glslprogram.cpp"
+// #include "glslprogram.cpp"
 
-GLSLProgram *Pattern;
+// GLSLProgram *Pattern;
 float Time;
 #include "sphere.cpp"
 
@@ -338,39 +338,8 @@ void Display()
 
     glEnable(GL_NORMALIZE);
 
-    float S0, T0;
-    float Ds, Dt;
-    float V0, V1, V2;
-    float ColorR, ColorG, ColorB;
-    ColorB = 0;
-    ColorG = 0.8;
-    ColorR = 0.25;
-    float distortion = 0;
-
-    Pattern->Use( );
-    Pattern->SetUniformVariable( "uS0", 0);
-    Pattern->SetUniformVariable( "uT0", 0);
-
-    Pattern->SetUniformVariable( "uColor", ColorR, ColorG, ColorB );
-    Pattern->SetUniformVariable( "uSpecularColor", 0, 0, 0 );
-    Pattern->SetUniformVariable((char *)"uTime",(float)(Time));
-	Pattern->SetUniformVariable((char *)"uDistortion",(float)(Distort));
-	Pattern->SetUniformVariable((char *)"uAnimation",(bool)(Animation));
-    
-    
-    // coefficients of each type of lighting
-	Pattern->SetUniformVariable((char *)"uKa",(float)1.);
-	Pattern->SetUniformVariable((char *)"uKd",(float).8);
-	Pattern->SetUniformVariable((char *)"uKs",(float).2);
-
-	Pattern->SetUniformVariable((char *)"uShininess",(float)1);
-	Pattern->SetUniformVariable((char *)"uSize",(float)8);
-    // MjbSphere(8, 64, 64);
-    glutSolidTeapot(10);
-    Pattern->Use( 0 ); // go back to fixed-function OpenGL
-
     // draw the current object:
-    // glCallList(BoxList);
+    glCallList(BoxList);
 
     if (DepthFightingOn != 0)
     {
@@ -669,28 +638,7 @@ void InitGraphics()
     glutIdleFunc(Animate);
 
     // init glew (a window must be open to do this):
-    GLenum err = glewInit();
-    if (err != GLEW_OK)
-    {
-        fprintf(stderr, "glewInit Error\n");
-    }
-    else
-        fprintf(stderr, "GLEW initialized OK\n");
-    fprintf(stderr, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
-    
-    // do this *after* opening the window and init'ing glew:
-    Pattern = new GLSLProgram();
-    bool valid = Pattern->Create((char *)"pattern.vert", (char *)"pattern.frag");
-    if (!valid)
-    {
-        fprintf(stderr, "Shader cannot be created!\n");
-        DoMainMenu(QUIT);
-    }
-    else
-    {
-        fprintf(stderr, "Shader created.\n");
-    }
-    Pattern->SetVerbose(false);
+
 
 #ifdef WIN32
     GLenum err = glewInit();
