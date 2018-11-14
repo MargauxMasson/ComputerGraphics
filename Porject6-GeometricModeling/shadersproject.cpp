@@ -365,22 +365,64 @@ void Display()
     struct Point p2;
     struct Point p3;
     struct Point p4;
+    float r, g, b;
     float teta = 0;
+    float radiusKirbyFace = 20;
+    float radiusKirbyArm = 6;
+
+    // Kirby is pink
+    r = 0.5;
+    g = 0;
+    b = 0.5;
 
     // Draw the circle which is the face of Kirby
     for (float i = 0; i <= 20; i++)
     {
-        p0 = initiatePoint(p0, 20 * cos(teta), 20 * sin(teta), 0);
+        p0 = initiatePoint(p0, radiusKirbyFace * cos(teta), radiusKirbyFace * sin(teta), 0);
         teta = teta + 0.1;
-        p01 = initiatePoint(p01, 20 * cos(teta), 20 * sin(teta), 0);
+        p01 = initiatePoint(p01, radiusKirbyFace * cos(teta), radiusKirbyFace * sin(teta), 0);
         teta = teta + 0.1;
-        p02 = initiatePoint(p02, 20 * cos(teta), 20 * sin(teta), 0);
+        p02 = initiatePoint(p02, radiusKirbyFace * cos(teta), radiusKirbyFace * sin(teta), 0);
         teta = teta + 0.1;
-        p03 = initiatePoint(p03, 20 * cos(teta), 20 * sin(teta), 0);
+        p03 = initiatePoint(p03, radiusKirbyFace * cos(teta), radiusKirbyFace * sin(teta), 0);
 
-        struct Curve c = initiateCurve(c, p0, p01, p02, p03, 0.5, 0, 0);
+        struct Curve c = initiateCurve(c, p0, p01, p02, p03, r,g,b);
         bezierWithCurve(c, 50);
     }
+
+    // Draw the circle which is the right arm of Kirby
+    teta = -M_PI / 2 - 0.1;
+    for (float i = 0; i <= 10; i++)
+    {
+        p0 = initiatePoint(p0, radiusKirbyFace + radiusKirbyArm * cos(teta), radiusKirbyArm * sin(teta), 0);
+        teta = teta + 0.1;
+        p01 = initiatePoint(p01, radiusKirbyFace + radiusKirbyArm * cos(teta), radiusKirbyArm * sin(teta), 0);
+        teta = teta + 0.1;
+        p02 = initiatePoint(p02, radiusKirbyFace + radiusKirbyArm * cos(teta), radiusKirbyArm * sin(teta), 0);
+        teta = teta + 0.1;
+        p03 = initiatePoint(p03, radiusKirbyFace + radiusKirbyArm * cos(teta), radiusKirbyArm * sin(teta), 0);
+
+        struct Curve c = initiateCurve(c, p0, p01, p02, p03, r,g,b);
+        bezierWithCurve(c, 50);
+    }
+
+    // Draw the circle which is the left arm of Kirby
+    teta = M_PI / 2 - 0.1;
+    for (float i = 0; i <= 10; i++)
+    {
+        p0 = initiatePoint(p0, -radiusKirbyFace + radiusKirbyArm * cos(teta), radiusKirbyArm * sin(teta), 0);
+        teta = teta + 0.1;
+        p01 = initiatePoint(p01, -radiusKirbyFace + radiusKirbyArm * cos(teta), radiusKirbyArm * sin(teta), 0);
+        teta = teta + 0.1;
+        p02 = initiatePoint(p02, -radiusKirbyFace + radiusKirbyArm * cos(teta), radiusKirbyArm * sin(teta), 0);
+        teta = teta + 0.1;
+        p03 = initiatePoint(p03, -radiusKirbyFace + radiusKirbyArm * cos(teta), radiusKirbyArm * sin(teta), 0);
+
+        struct Curve c = initiateCurve(c, p0, p01, p02, p03, r,g,b);
+        bezierWithCurve(c, 50);
+    }
+
+
 
     // draw the current object:
     // glCallList(BoxList);
