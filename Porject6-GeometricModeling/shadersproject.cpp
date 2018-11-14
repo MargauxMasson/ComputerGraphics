@@ -174,7 +174,9 @@ Curve Stem;				// if you are not
 void Animate();
 void Display();
 Point initiatePoint(Point, float, float, float);
+Curve initiateCurve(Curve, Point, Point, Point, Point, float, float, float);
 void bezier(Point, Point, Point, Point, float, float, float, float);
+void bezierWithCurve(struct Curve, float);
 void DoAxesMenu(int);
 void DoColorMenu(int);
 void DoDepthBufferMenu(int);
@@ -368,8 +370,11 @@ void Display()
     p3 = initiatePoint(p3, 0,-5,-5);
     p4 = initiatePoint(p4, 0,-10,-10);
 
+    struct Curve c0 = initiateCurve(c0, p0, p4, p1, p3, 0.5, 0, 0);
+
     bezier(p0, p2, p1, p3, 10, 0.5, 0, 0);
     bezier(p0, p1, p2, p4, 20, 0,1,0);
+    bezierWithCurve(c0, 10);
 
     // draw the current object:
     // glCallList(BoxList);
@@ -417,6 +422,17 @@ void Display()
     glFlush();
 }
 
+Curve initiateCurve(Curve c, Point p0, Point p1, Point p2, Point p3, float r, float g, float b) {
+    c.p0 = p0;
+    c.p1 = p1;
+    c.p2 = p2;
+    c.p3 = p3;
+    c.r = r;
+    c.g = g;
+    c.b = b;
+    return c;
+}
+
 Point initiatePoint(Point p, float x0, float y0, float z0) {
     p.x = x0;
 	p.y = y0;
@@ -436,6 +452,24 @@ void bezier(struct Point p0, struct Point p1, struct Point p2, struct Point p3, 
             float x = omt*omt*omt*p0.x + 3.f*t*omt*omt*p1.x + 3.f*t*t*omt*p2.x + t*t*t*p3.x;
             float y = omt*omt*omt*p0.y + 3.f*t*omt*omt*p1.y + 3.f*t*t*omt*p2.y + t*t*t*p3.y;
             float z = omt*omt*omt*p0.z + 3.f*t*omt*omt*p1.z + 3.f*t*t*omt*p2.z + t*t*t*p3.z;
+            glVertex3f( x, y, z );
+        }
+    glEnd( );
+    glLineWidth( 1. );
+}
+
+void bezierWithCurve(struct Curve c, float NUMPOINTS)
+{
+    glLineWidth( 3. );
+    glColor3f( c.r, c.g, c.b );
+    glBegin( GL_LINE_STRIP );
+        for( int it = 0; it <= NUMPOINTS; it++ )
+        {
+            float t = (float)it / (float)NUMPOINTS;
+            float omt = 1.f - t;
+            float x = omt*omt*omt*c.p0.x + 3.f*t*omt*omt*c.p1.x + 3.f*t*t*omt*c.p2.x + t*t*t*c.p3.x;
+            float y = omt*omt*omt*c.p0.y + 3.f*t*omt*omt*c.p1.y + 3.f*t*t*omt*c.p2.y + t*t*t*c.p3.y;
+            float z = omt*omt*omt*c.p0.z + 3.f*t*omt*omt*c.p1.z + 3.f*t*t*omt*c.p2.z + t*t*t*c.p3.z;
             glVertex3f( x, y, z );
         }
     glEnd( );
