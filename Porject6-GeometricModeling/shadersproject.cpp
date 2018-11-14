@@ -16,9 +16,7 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include "glut.h"
-// #include "glslprogram.cpp"
 
-// GLSLProgram *Pattern;
 float Time;
 #include "sphere.cpp"
 
@@ -167,7 +165,7 @@ struct Curve
 Curve Curves[10]; // if you are creating a pattern of curves
 Curve Stem;       // if you are not
 
-#define MS_PER_CYCLE 2000
+#define MS_PER_CYCLE 1000
 // function prototypes:
 
 void Animate();
@@ -584,13 +582,13 @@ void Display()
     // Draw the circle which is the mouth of Kirby
     for (float i = 0; i <= 20; i++)
     {
-        p0 = initiatePoint(p0,  (radiusKirbyMouth / 1.5) * cos(teta), centerMouthY + radiusKirbyMouth * sin(teta), 0);
+        p0 = initiatePoint(p0,  (radiusKirbyMouth + Time*5 / 1.5) * cos(teta), centerMouthY + (radiusKirbyMouth + Time*5)  * sin(teta), 0);
         teta = teta + 0.1;
-        p01 = initiatePoint(p01, (radiusKirbyMouth / 1.5) * cos(teta), centerMouthY + radiusKirbyMouth * sin(teta), 0);
+        p01 = initiatePoint(p01, (radiusKirbyMouth + Time*5 / 1.5) * cos(teta), centerMouthY + (radiusKirbyMouth + Time*5)  * sin(teta), 0);
         teta = teta + 0.1;
-        p02 = initiatePoint(p02, (radiusKirbyMouth / 1.5) * cos(teta), centerMouthY + radiusKirbyMouth * sin(teta), 0);
+        p02 = initiatePoint(p02, (radiusKirbyMouth + Time*5 / 1.5) * cos(teta), centerMouthY + (radiusKirbyMouth + Time*5)  * sin(teta), 0);
         teta = teta + 0.1;
-        p03 = initiatePoint(p03, (radiusKirbyMouth / 1.5) * cos(teta), centerMouthY + radiusKirbyMouth * sin(teta), 0);
+        p03 = initiatePoint(p03, (radiusKirbyMouth + Time*5 / 1.5) * cos(teta), centerMouthY + (radiusKirbyMouth + Time*5)  * sin(teta), 0);
 
         struct Curve c = initiateCurve(c, p0, p01, p02, p03, r,g,b);
         bezierWithCurve(c, 50);
