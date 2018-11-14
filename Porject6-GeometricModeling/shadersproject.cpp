@@ -152,21 +152,20 @@ float Xrot, Yrot;    // rotation angles in degrees
 
 bool Frozen = true;
 
-
 struct Point
 {
-        float x0, y0, z0;       // initial coordinates
-        float x,  y,  z;        // animated coordinates
+    float x0, y0, z0; // initial coordinates
+    float x, y, z;    // animated coordinates
 };
 
 struct Curve
 {
-        float r, g, b;
-        Point p0, p1, p2, p3;
+    float r, g, b;
+    Point p0, p1, p2, p3;
 };
 
-Curve Curves[10];		// if you are creating a pattern of curves
-Curve Stem;				// if you are not
+Curve Curves[10]; // if you are creating a pattern of curves
+Curve Stem;       // if you are not
 
 #define MS_PER_CYCLE 2000
 // function prototypes:
@@ -359,22 +358,29 @@ void Display()
     glEnable(GL_NORMALIZE);
 
     struct Point p0;
-	struct Point p1;
-	struct Point p2;
-	struct Point p3;
-	struct Point p4;
+    struct Point p01;
+    struct Point p02;
+    struct Point p03;
+    struct Point p1;
+    struct Point p2;
+    struct Point p3;
+    struct Point p4;
+    float teta = 0;
 
-    p0 = initiatePoint(p0, 0,0,0);
-    p1 = initiatePoint(p1, 0,1,-1);
-    p2 = initiatePoint(p2, 0,5,5);
-    p3 = initiatePoint(p3, 0,-5,-5);
-    p4 = initiatePoint(p4, 0,-10,-10);
+    // Draw the circle which is the face of Kirby
+    for (float i = 0; i <= 20; i++)
+    {
+        p0 = initiatePoint(p0, 20 * cos(teta), 20 * sin(teta), 0);
+        teta = teta + 0.1;
+        p01 = initiatePoint(p01, 20 * cos(teta), 20 * sin(teta), 0);
+        teta = teta + 0.1;
+        p02 = initiatePoint(p02, 20 * cos(teta), 20 * sin(teta), 0);
+        teta = teta + 0.1;
+        p03 = initiatePoint(p03, 20 * cos(teta), 20 * sin(teta), 0);
 
-    struct Curve c0 = initiateCurve(c0, p0, p4, p1, p3, 0.5, 0, 0);
-
-    bezier(p0, p2, p1, p3, 10, 0.5, 0, 0);
-    bezier(p0, p1, p2, p4, 20, 0,1,0);
-    bezierWithCurve(c0, 10);
+        struct Curve c = initiateCurve(c, p0, p01, p02, p03, 0.5, 0, 0);
+        bezierWithCurve(c, 50);
+    }
 
     // draw the current object:
     // glCallList(BoxList);
@@ -422,7 +428,8 @@ void Display()
     glFlush();
 }
 
-Curve initiateCurve(Curve c, Point p0, Point p1, Point p2, Point p3, float r, float g, float b) {
+Curve initiateCurve(Curve c, Point p0, Point p1, Point p2, Point p3, float r, float g, float b)
+{
     c.p0 = p0;
     c.p1 = p1;
     c.p2 = p2;
@@ -433,47 +440,48 @@ Curve initiateCurve(Curve c, Point p0, Point p1, Point p2, Point p3, float r, fl
     return c;
 }
 
-Point initiatePoint(Point p, float x0, float y0, float z0) {
+Point initiatePoint(Point p, float x0, float y0, float z0)
+{
     p.x = x0;
-	p.y = y0;
-	p.z = z0;
+    p.y = y0;
+    p.z = z0;
     return p;
 }
 
 void bezier(struct Point p0, struct Point p1, struct Point p2, struct Point p3, float NUMPOINTS, float r, float g, float b)
 {
-    glLineWidth( 3. );
-    glColor3f( r, g, b );
-    glBegin( GL_LINE_STRIP );
-        for( int it = 0; it <= NUMPOINTS; it++ )
-        {
-            float t = (float)it / (float)NUMPOINTS;
-            float omt = 1.f - t;
-            float x = omt*omt*omt*p0.x + 3.f*t*omt*omt*p1.x + 3.f*t*t*omt*p2.x + t*t*t*p3.x;
-            float y = omt*omt*omt*p0.y + 3.f*t*omt*omt*p1.y + 3.f*t*t*omt*p2.y + t*t*t*p3.y;
-            float z = omt*omt*omt*p0.z + 3.f*t*omt*omt*p1.z + 3.f*t*t*omt*p2.z + t*t*t*p3.z;
-            glVertex3f( x, y, z );
-        }
-    glEnd( );
-    glLineWidth( 1. );
+    glLineWidth(3.);
+    glColor3f(r, g, b);
+    glBegin(GL_LINE_STRIP);
+    for (int it = 0; it <= NUMPOINTS; it++)
+    {
+        float t = (float)it / (float)NUMPOINTS;
+        float omt = 1.f - t;
+        float x = omt * omt * omt * p0.x + 3.f * t * omt * omt * p1.x + 3.f * t * t * omt * p2.x + t * t * t * p3.x;
+        float y = omt * omt * omt * p0.y + 3.f * t * omt * omt * p1.y + 3.f * t * t * omt * p2.y + t * t * t * p3.y;
+        float z = omt * omt * omt * p0.z + 3.f * t * omt * omt * p1.z + 3.f * t * t * omt * p2.z + t * t * t * p3.z;
+        glVertex3f(x, y, z);
+    }
+    glEnd();
+    glLineWidth(1.);
 }
 
 void bezierWithCurve(struct Curve c, float NUMPOINTS)
 {
-    glLineWidth( 3. );
-    glColor3f( c.r, c.g, c.b );
-    glBegin( GL_LINE_STRIP );
-        for( int it = 0; it <= NUMPOINTS; it++ )
-        {
-            float t = (float)it / (float)NUMPOINTS;
-            float omt = 1.f - t;
-            float x = omt*omt*omt*c.p0.x + 3.f*t*omt*omt*c.p1.x + 3.f*t*t*omt*c.p2.x + t*t*t*c.p3.x;
-            float y = omt*omt*omt*c.p0.y + 3.f*t*omt*omt*c.p1.y + 3.f*t*t*omt*c.p2.y + t*t*t*c.p3.y;
-            float z = omt*omt*omt*c.p0.z + 3.f*t*omt*omt*c.p1.z + 3.f*t*t*omt*c.p2.z + t*t*t*c.p3.z;
-            glVertex3f( x, y, z );
-        }
-    glEnd( );
-    glLineWidth( 1. );
+    glLineWidth(3.);
+    glColor3f(c.r, c.g, c.b);
+    glBegin(GL_LINE_STRIP);
+    for (int it = 0; it <= NUMPOINTS; it++)
+    {
+        float t = (float)it / (float)NUMPOINTS;
+        float omt = 1.f - t;
+        float x = omt * omt * omt * c.p0.x + 3.f * t * omt * omt * c.p1.x + 3.f * t * t * omt * c.p2.x + t * t * t * c.p3.x;
+        float y = omt * omt * omt * c.p0.y + 3.f * t * omt * omt * c.p1.y + 3.f * t * t * omt * c.p2.y + t * t * t * c.p3.y;
+        float z = omt * omt * omt * c.p0.z + 3.f * t * omt * omt * c.p1.z + 3.f * t * t * omt * c.p2.z + t * t * t * c.p3.z;
+        glVertex3f(x, y, z);
+    }
+    glEnd();
+    glLineWidth(1.);
 }
 
 void DoAxesMenu(int id)
@@ -731,7 +739,6 @@ void InitGraphics()
 
     // init glew (a window must be open to do this):
 
-
 #ifdef WIN32
     GLenum err = glewInit();
     if (err != GLEW_OK)
@@ -744,54 +751,53 @@ void InitGraphics()
 #endif
 }
 
-
-void RotateX( Point *p, float deg, float xc, float yc, float zc ) {
-        float rad = deg * (M_PI/180.f);         // radians
-        float x = p->x0 - xc;
-        float y = p->y0 - yc;
-        float z = p->z0 - zc;
-
-        float xp = x;
-        float yp = y*cos(rad) - z*sin(rad);
-        float zp = y*sin(rad) + z*cos(rad);
-
-        p->x = xp + xc;
-        p->y = yp + yc;
-        p->z = zp + zc;
-}
-
-void RotateY( Point *p, float deg, float xc, float yc, float zc )
+void RotateX(Point *p, float deg, float xc, float yc, float zc)
 {
-        float rad = deg * (M_PI/180.f);         // radians
-        float x = p->x0 - xc;
-        float y = p->y0 - yc;
-        float z = p->z0 - zc;
+    float rad = deg * (M_PI / 180.f); // radians
+    float x = p->x0 - xc;
+    float y = p->y0 - yc;
+    float z = p->z0 - zc;
 
-        float xp =  x*cos(rad) + z*sin(rad);
-        float yp =  y;
-        float zp = -x*sin(rad) + z*cos(rad);
+    float xp = x;
+    float yp = y * cos(rad) - z * sin(rad);
+    float zp = y * sin(rad) + z * cos(rad);
 
-        p->x = xp + xc;
-        p->y = yp + yc;
-        p->z = zp + zc;
+    p->x = xp + xc;
+    p->y = yp + yc;
+    p->z = zp + zc;
 }
 
-void RotateZ( Point *p, float deg, float xc, float yc, float zc )
+void RotateY(Point *p, float deg, float xc, float yc, float zc)
 {
-        float rad = deg * (M_PI/180.f);         // radians
-        float x = p->x0 - xc;
-        float y = p->y0 - yc;
-        float z = p->z0 - zc;
+    float rad = deg * (M_PI / 180.f); // radians
+    float x = p->x0 - xc;
+    float y = p->y0 - yc;
+    float z = p->z0 - zc;
 
-        float xp = x*cos(rad) - y*sin(rad);
-        float yp = x*sin(rad) + y*cos(rad);
-        float zp = z;
+    float xp = x * cos(rad) + z * sin(rad);
+    float yp = y;
+    float zp = -x * sin(rad) + z * cos(rad);
 
-        p->x = xp + xc;
-        p->y = yp + yc;
-        p->z = zp + zc;
+    p->x = xp + xc;
+    p->y = yp + yc;
+    p->z = zp + zc;
 }
 
+void RotateZ(Point *p, float deg, float xc, float yc, float zc)
+{
+    float rad = deg * (M_PI / 180.f); // radians
+    float x = p->x0 - xc;
+    float y = p->y0 - yc;
+    float z = p->z0 - zc;
+
+    float xp = x * cos(rad) - y * sin(rad);
+    float yp = x * sin(rad) + y * cos(rad);
+    float zp = z;
+
+    p->x = xp + xc;
+    p->y = yp + yc;
+    p->z = zp + zc;
+}
 
 // initialize the display lists that will not change:
 // (a display list is a way to store opengl commands in
@@ -857,7 +863,7 @@ void Keyboard(unsigned char c, int x, int y)
     case 'f':
         Frozen = !Frozen;
         // Animation = false;
-       // Distort = false;
+        // Distort = false;
         break;
 
     case 'q':
