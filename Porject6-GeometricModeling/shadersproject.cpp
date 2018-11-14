@@ -173,7 +173,7 @@ Curve Stem;				// if you are not
 
 void Animate();
 void Display();
-void bezier(Point, Point, Point, Point, float);
+void bezier(Point, Point, Point, Point, float, float, float, float);
 void DoAxesMenu(int);
 void DoColorMenu(int);
 void DoDepthBufferMenu(int);
@@ -359,6 +359,7 @@ void Display()
 	struct Point p1;
 	struct Point p2;
 	struct Point p3;
+	struct Point p4;
 	// struct point line[resolution];
 	p0.x = 0;
 	p0.y = 0;
@@ -374,9 +375,14 @@ void Display()
     
 	p3.x = 0;
 	p3.y = -5;
-	p3.z = -5;
+	p3.z = -5;	
+    
+    p4.x = 0;
+	p4.y = -10;
+	p4.z = -10;
 
-    bezier(p0, p1, p2, p3, 10);
+    bezier(p0, p1, p2, p3, 10, 0.5, 0, 0);
+    bezier(p0, p1, p2, p4, 20, 0,1,0);
     // glLineWidth( 3. );
     // glColor3f( 0.5, 0, 0 );
     // glBegin( GL_LINE_STRIP );
@@ -438,10 +444,10 @@ void Display()
     glFlush();
 }
 
-void bezier(struct Point p0, struct Point p1, struct Point p2, struct Point p3, float NUMPOINTS)
+void bezier(struct Point p0, struct Point p1, struct Point p2, struct Point p3, float NUMPOINTS, float r, float g, float b)
 {
     glLineWidth( 3. );
-    glColor3f( 0.5, 0, 0 );
+    glColor3f( r, g, b );
     glBegin( GL_LINE_STRIP );
         for( int it = 0; it <= NUMPOINTS; it++ )
         {
