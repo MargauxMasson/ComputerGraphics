@@ -151,6 +151,7 @@ float Xrot, Yrot;    // rotation angles in degrees
 
 bool Frozen = true;
 bool controlPointsEnable = false;
+bool numberOfPointsEnable = false;
 
 struct Point
 {
@@ -695,22 +696,6 @@ void bezier(struct Point p0, struct Point p1, struct Point p2, struct Point p3, 
 
 void bezierWithCurve(struct Curve c, float NUMPOINTS)
 {
-
-    glLineWidth(3.);
-    glColor3f(c.r, c.g, c.b);
-    glBegin(GL_LINE_STRIP);
-    for (int it = 0; it <= NUMPOINTS; it++)
-    {
-        float t = (float)it / (float)NUMPOINTS;
-        float omt = 1.f - t;
-        float x = omt * omt * omt * c.p0.x + 3.f * t * omt * omt * c.p1.x + 3.f * t * t * omt * c.p2.x + t * t * t * c.p3.x;
-        float y = omt * omt * omt * c.p0.y + 3.f * t * omt * omt * c.p1.y + 3.f * t * t * omt * c.p2.y + t * t * t * c.p3.y;
-        float z = omt * omt * omt * c.p0.z + 3.f * t * omt * omt * c.p1.z + 3.f * t * t * omt * c.p2.z + t * t * t * c.p3.z;
-        glVertex3f(x, y, z);
-    }
-    glEnd();
-    glLineWidth(1.);    
-
     if (controlPointsEnable) {
         glColor3f(1,0,0);    
         glPointSize(5.0f);
@@ -721,8 +706,33 @@ void bezierWithCurve(struct Curve c, float NUMPOINTS)
             glVertex3f(c.p2.x, c.p2.y, c.p2.z);
             glVertex3f(c.p3.x, c.p3.y, c.p3.z);
         }
-        glEnd();        
+        glEnd(); 
+    } 
+    glLineWidth(3.);
+    glColor3f(c.r, c.g, c.b);
+    glBegin(GL_LINE_STRIP);
+    for (int it = 0; it <= NUMPOINTS; it++)
+    {
+        float t = (float)it / (float)NUMPOINTS;
+        float omt = 1.f - t;
+        float x = omt * omt * omt * c.p0.x + 3.f * t * omt * omt * c.p1.x + 3.f * t * t * omt * c.p2.x + t * t * t * c.p3.x;
+        float y = omt * omt * omt * c.p0.y + 3.f * t * omt * omt * c.p1.y + 3.f * t * t * omt * c.p2.y + t * t * t * c.p3.y;
+        float z = omt * omt * omt * c.p0.z + 3.f * t * omt * omt * c.p1.z + 3.f * t * t * omt * c.p2.z + t * t * t * c.p3.z;
+        glVertex3f(x, y, z);  
+        if (numberOfPointsEnable) {
+        glColor3f(0,1,0);    
+        glPointSize(5.0f);
+        glBegin(GL_POINTS);
+            {
+                glVertex3f(x, y, z);  
+            }
+        glEnd();   
+        }          
     }
+    glEnd();
+    glLineWidth(1.);    
+
+
 
 }
 
@@ -1084,7 +1094,10 @@ void Keyboard(unsigned char c, int x, int y)
     case 'C':
         controlPointsEnable = !controlPointsEnable;
         break;
-
+    case 'n':
+    case 'N':
+        numberOfPointsEnable = !numberOfPointsEnable;
+        break;
     case 'p':
     case 'P':
         WhichProjection = PERSP;
