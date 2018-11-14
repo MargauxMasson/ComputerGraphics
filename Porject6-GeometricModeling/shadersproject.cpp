@@ -369,9 +369,9 @@ void Display()
     float teta = 0;
     float radiusKirbyFace = 20;
     float radiusKirbyArm = 6;
-    float radiusKirbyEye = 3;
+    float radiusKirbyEye = 6;
     float centerEyeX = 5;
-    float centerEyeY = 10;
+    float centerEyeY = 8;
 
     // Kirby is pink
     r = 0.5;
@@ -427,15 +427,28 @@ void Display()
 
     // Draw the circle which is the right eye of Kirby
     teta = M_PI / 2 - 0.1;
-    for (float i = 0; i <= 20; i++)
+    // for (float i = 0; i <= 20; i++)
+    // {
+    //     p0 = initiatePoint(p0, centerEyeX + radiusKirbyEye * cos(teta), centerEyeY + radiusKirbyEye * sin(teta), 0);
+    //     teta = teta + 0.1;
+    //     p01 = initiatePoint(p01, centerEyeX + radiusKirbyEye * cos(teta), centerEyeY + radiusKirbyEye * sin(teta), 0);
+    //     teta = teta + 0.1;
+    //     p02 = initiatePoint(p02, centerEyeX + radiusKirbyEye * cos(teta), centerEyeY + radiusKirbyEye * sin(teta), 0);
+    //     teta = teta + 0.1;
+    //     p03 = initiatePoint(p03, centerEyeX + radiusKirbyEye * cos(teta), centerEyeY + radiusKirbyEye * sin(teta), 0);
+
+    //     struct Curve c = initiateCurve(c, p0, p01, p02, p03, r,g,b);
+    //     bezierWithCurve(c, 50);
+    // }
+        for (float i = 0; i <= 20; i++)
     {
-        p0 = initiatePoint(p0, centerEyeX + radiusKirbyEye * cos(teta), centerEyeY + radiusKirbyEye * sin(teta), 0);
+        p0 = initiatePoint(p0, centerEyeX + (radiusKirbyEye / 2) * cos(teta), centerEyeY + 2 + radiusKirbyEye * sin(teta), 0);
         teta = teta + 0.1;
-        p01 = initiatePoint(p01, centerEyeX + radiusKirbyEye * cos(teta), centerEyeY + radiusKirbyEye * sin(teta), 0);
+        p01 = initiatePoint(p01, centerEyeX + (radiusKirbyEye / 2) * cos(teta), centerEyeY + 2 + radiusKirbyEye * sin(teta), 0);
         teta = teta + 0.1;
-        p02 = initiatePoint(p02, centerEyeX + radiusKirbyEye * cos(teta), centerEyeY + radiusKirbyEye * sin(teta), 0);
+        p02 = initiatePoint(p02, centerEyeX + (radiusKirbyEye / 2) * cos(teta), centerEyeY + 2 + radiusKirbyEye * sin(teta), 0);
         teta = teta + 0.1;
-        p03 = initiatePoint(p03, centerEyeX + radiusKirbyEye * cos(teta), centerEyeY + radiusKirbyEye * sin(teta), 0);
+        p03 = initiatePoint(p03, centerEyeX + (radiusKirbyEye / 2) * cos(teta), centerEyeY + 2 + radiusKirbyEye * sin(teta), 0);
 
         struct Curve c = initiateCurve(c, p0, p01, p02, p03, r,g,b);
         bezierWithCurve(c, 50);
@@ -443,15 +456,28 @@ void Display()
 
     // Draw the circle which is the left eye of Kirby
     teta = M_PI / 2 - 0.1;
+    // for (float i = 0; i <= 20; i++)
+    // {
+    //     p0 = initiatePoint(p0, -centerEyeX + radiusKirbyEye * cos(teta), centerEyeY + radiusKirbyEye * sin(teta), 0);
+    //     teta = teta + 0.1;
+    //     p01 = initiatePoint(p01, -centerEyeX + radiusKirbyEye * cos(teta), centerEyeY + radiusKirbyEye * sin(teta), 0);
+    //     teta = teta + 0.1;
+    //     p02 = initiatePoint(p02, -centerEyeX + radiusKirbyEye * cos(teta), centerEyeY + radiusKirbyEye * sin(teta), 0);
+    //     teta = teta + 0.1;
+    //     p03 = initiatePoint(p03, -centerEyeX + radiusKirbyEye * cos(teta), centerEyeY + radiusKirbyEye * sin(teta), 0);
+
+    //     struct Curve c = initiateCurve(c, p0, p01, p02, p03, r,g,b);
+    //     bezierWithCurve(c, 50);
+    // }
     for (float i = 0; i <= 20; i++)
     {
-        p0 = initiatePoint(p0, -centerEyeX + radiusKirbyEye * cos(teta), centerEyeY + radiusKirbyEye * sin(teta), 0);
+        p0 = initiatePoint(p0, -centerEyeX + (radiusKirbyEye / 2) * cos(teta), centerEyeY + 2 + radiusKirbyEye * sin(teta), 0);
         teta = teta + 0.1;
-        p01 = initiatePoint(p01, -centerEyeX + radiusKirbyEye * cos(teta), centerEyeY + radiusKirbyEye * sin(teta), 0);
+        p01 = initiatePoint(p01, -centerEyeX + (radiusKirbyEye / 2) * cos(teta), centerEyeY + 2 + radiusKirbyEye * sin(teta), 0);
         teta = teta + 0.1;
-        p02 = initiatePoint(p02, -centerEyeX + radiusKirbyEye * cos(teta), centerEyeY + radiusKirbyEye * sin(teta), 0);
+        p02 = initiatePoint(p02, -centerEyeX + (radiusKirbyEye / 2) * cos(teta), centerEyeY + 2 + radiusKirbyEye * sin(teta), 0);
         teta = teta + 0.1;
-        p03 = initiatePoint(p03, -centerEyeX + radiusKirbyEye * cos(teta), centerEyeY + radiusKirbyEye * sin(teta), 0);
+        p03 = initiatePoint(p03, -centerEyeX + (radiusKirbyEye / 2) * cos(teta), centerEyeY + 2 + radiusKirbyEye * sin(teta), 0);
 
         struct Curve c = initiateCurve(c, p0, p01, p02, p03, r,g,b);
         bezierWithCurve(c, 50);
