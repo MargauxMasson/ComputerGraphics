@@ -17,8 +17,7 @@
 #include "glut.h"
 
 float Time;
-float resolution = 100;
-#include "sphere.cpp"
+int resolution = 10;
 
 // title of these windows:
 
@@ -175,7 +174,6 @@ void Animate();
 void Display();
 Point initiatePoint(Point, float, float, float);
 Curve initiateCurve(Curve, Point, Point, Point, Point, float, float, float);
-void bezier(Point, Point, Point, Point, float, float, float, float);
 void bezierWithCurve(struct Curve, float);
 void DoAxesMenu(int);
 void DoColorMenu(int);
@@ -191,7 +189,7 @@ void DoRasterString(float, float, float, char *);
 void DoStrokeString(float, float, float, float, char *);
 float ElapsedSeconds();
 void InitGraphics();
-void InitLists();
+// void InitLists();
 void InitMenus();
 void Keyboard(unsigned char, int, int);
 void MouseButton(int, int, int, int);
@@ -219,7 +217,7 @@ int main(int argc, char *argv[])
 
     // create the display structures that will not change:
 
-    InitLists();
+    //InitLists();
 
     // init all the global variables used by Display( ):
     // this will also post a redisplay
@@ -364,7 +362,6 @@ void Display()
 
     float r, g, b;
 
-
     // Kirby is pink
     r = 0.5;
     g = 0.1;
@@ -402,18 +399,17 @@ void Display()
     float zArm = 0;
 
     p0 = initiatePoint(p0, xFace04 - 2, -yArm04, zArm);
-    p01 = initiatePoint(p01, xArm+ sin(Time)*10, -yArm12+ sin(Time)*20, zArm + sin(Time)*10);
-    p02 = initiatePoint(p02, xArm+ sin(Time)*10, yArm12+ sin(Time)*20, zArm + sin(Time)*10);
+    p01 = initiatePoint(p01, xArm + sin(Time) * 10, -yArm12 + sin(Time) * 20, zArm + sin(Time) * 10);
+    p02 = initiatePoint(p02, xArm + sin(Time) * 10, yArm12 + sin(Time) * 20, zArm + sin(Time) * 10);
     p03 = initiatePoint(p03, xFace04 - 2, yArm04, zArm);
 
     struct Curve cRightArm = initiateCurve(cRightArm, p0, p01, p02, p03, r, g, b);
     bezierWithCurve(cRightArm, resolution);
 
-
     // Draw the circle which is the left arm of Kirby
     p0 = initiatePoint(p0, -xFace04 + 2, -yArm04, zArm);
-    p01 = initiatePoint(p01, -xArm, -yArm12+ sin(Time)*20, zArm + sin(Time)*10);
-    p02 = initiatePoint(p02, -xArm, yArm12+ sin(Time)*20, zArm + sin(Time)*10);
+    p01 = initiatePoint(p01, -xArm, -yArm12 + sin(Time) * 20, zArm + sin(Time) * 10);
+    p02 = initiatePoint(p02, -xArm, yArm12 + sin(Time) * 20, zArm + sin(Time) * 10);
     p03 = initiatePoint(p03, -xFace04 + 2, yArm04, zArm);
 
     struct Curve cLeftArm = initiateCurve(cLeftArm, p0, p01, p02, p03, r, g, b);
@@ -447,16 +443,16 @@ void Display()
     bezierWithCurve(cRightEyeBottom, resolution);
 
     // Pupil Right
-    p0 = initiatePoint(p0, xEyes0 + 1, yEyes0 + 5, zEyes + Time * 2 );
-    p01 = initiatePoint(p01, xEyes1, yEyes1 - 5, zEyes + Time * 2 );
-    p02 = initiatePoint(p02, xEyes2, yEyes1 - 5, zEyes + Time * 2 );
-    p03 = initiatePoint(p03, xEyes3 - 1 , yEyes0 + 5, zEyes + Time * 2 );
-    struct Curve cRightEyePupilTop = initiateCurve(cRightEyePupilTop, p0, p01, p02, p03, 0.8,0.8,1);
+    p0 = initiatePoint(p0, xEyes0 + 1, yEyes0 + 5, zEyes + Time * 2);
+    p01 = initiatePoint(p01, xEyes1, yEyes1 - 5, zEyes + Time * 2);
+    p02 = initiatePoint(p02, xEyes2, yEyes1 - 5, zEyes + Time * 2);
+    p03 = initiatePoint(p03, xEyes3 - 1, yEyes0 + 5, zEyes + Time * 2);
+    struct Curve cRightEyePupilTop = initiateCurve(cRightEyePupilTop, p0, p01, p02, p03, 0.8, 0.8, 1);
     bezierWithCurve(cRightEyePupilTop, resolution);
 
-    p01 = initiatePoint(p01, xEyes1, yEyes1 - 10, zEyes + Time * 2 );
-    p02 = initiatePoint(p02, xEyes2, yEyes1 - 10, zEyes + Time * 2 );
-    struct Curve cRightEyePupilBottom = initiateCurve(cRightEyePupilBottom, p0, p01, p02, p03, 0.8,0.8,1);
+    p01 = initiatePoint(p01, xEyes1, yEyes1 - 10, zEyes + Time * 2);
+    p02 = initiatePoint(p02, xEyes2, yEyes1 - 10, zEyes + Time * 2);
+    struct Curve cRightEyePupilBottom = initiateCurve(cRightEyePupilBottom, p0, p01, p02, p03, 0.8, 0.8, 1);
     bezierWithCurve(cRightEyePupilBottom, resolution);
 
     // Draw the circle which is the left eye of Kirby
@@ -474,18 +470,18 @@ void Display()
     bezierWithCurve(cLeftEyeBottom, resolution);
 
     // Pupil left
-    p0 = initiatePoint(p0, -xEyes0 - 1, yEyes0 + 5, zEyes + Time * 2 );
-    p01 = initiatePoint(p01, -xEyes1, yEyes1 - 5, zEyes + Time * 2 );
-    p02 = initiatePoint(p02, -xEyes2, yEyes1 - 5, zEyes + Time * 2 );
-    p03 = initiatePoint(p03, -xEyes3 + 1 , yEyes0 + 5, zEyes + Time * 2 );
+    p0 = initiatePoint(p0, -xEyes0 - 1, yEyes0 + 5, zEyes + Time * 2);
+    p01 = initiatePoint(p01, -xEyes1, yEyes1 - 5, zEyes + Time * 2);
+    p02 = initiatePoint(p02, -xEyes2, yEyes1 - 5, zEyes + Time * 2);
+    p03 = initiatePoint(p03, -xEyes3 + 1, yEyes0 + 5, zEyes + Time * 2);
 
-    struct Curve cLeftEyePupilTop = initiateCurve(cLeftEyePupilTop, p0, p01, p02, p03, 0.8,0.8,1);
+    struct Curve cLeftEyePupilTop = initiateCurve(cLeftEyePupilTop, p0, p01, p02, p03, 0.8, 0.8, 1);
     bezierWithCurve(cLeftEyePupilTop, resolution);
 
-    p01 = initiatePoint(p01, -xEyes1, yEyes1 - 10, zEyes + Time * 2 );
-    p02 = initiatePoint(p02, -xEyes2, yEyes1 - 10, zEyes + Time * 2 );
+    p01 = initiatePoint(p01, -xEyes1, yEyes1 - 10, zEyes + Time * 2);
+    p02 = initiatePoint(p02, -xEyes2, yEyes1 - 10, zEyes + Time * 2);
 
-    struct Curve cLeftEyePupilBottom = initiateCurve(cLeftEyePupilBottom, p0, p01, p02, p03, 0.8,0.8,1);
+    struct Curve cLeftEyePupilBottom = initiateCurve(cLeftEyePupilBottom, p0, p01, p02, p03, 0.8, 0.8, 1);
     bezierWithCurve(cLeftEyePupilBottom, resolution);
 
     //////////////////// Red cheeks ////////////////////
@@ -524,8 +520,8 @@ void Display()
     /////////////////// FEET /////////////////
     // Draw the circle which is the right foot of Kirby
     p0 = initiatePoint(p0, 2, -22, 0);
-    p01 = initiatePoint(p01, 10 + Time*10, -40 - sin(Time)*10, 0 + sin(Time)*10);
-    p02 = initiatePoint(p02, 14 + Time*10, -40 - sin(Time)*10, 0 + sin(Time)*10);
+    p01 = initiatePoint(p01, 10 + Time * 10, -40 - sin(Time) * 10, 0 + sin(Time) * 10);
+    p02 = initiatePoint(p02, 14 + Time * 10, -40 - sin(Time) * 10, 0 + sin(Time) * 10);
     p03 = initiatePoint(p03, 17, -14, 0);
 
     struct Curve cRightFootTop = initiateCurve(cRightFootTop, p0, p01, p02, p03, r, g, b);
@@ -533,8 +529,8 @@ void Display()
 
     // Draw the circle which is the left foot of Kirby
     p0 = initiatePoint(p0, -2, -22, 0);
-    p01 = initiatePoint(p01, -10 - Time*10, -40 - sin(Time)*10, 0+ sin(Time)*10);
-    p02 = initiatePoint(p02, -14 - Time*10, -40 - sin(Time)*10, 0+ sin(Time)*10);
+    p01 = initiatePoint(p01, -10 - Time * 10, -40 - sin(Time) * 10, 0 + sin(Time) * 10);
+    p02 = initiatePoint(p02, -14 - Time * 10, -40 - sin(Time) * 10, 0 + sin(Time) * 10);
     p03 = initiatePoint(p03, -17, -14, 0);
 
     struct Curve cRightFootBottom = initiateCurve(cRightFootBottom, p0, p01, p02, p03, r, g, b);
@@ -545,18 +541,17 @@ void Display()
     ///////////// MOUTH //////////////////
     // Draw the circle which is the mouth of Kirby
     p0 = initiatePoint(p0, 4, -8, zEyes);
-    p01 = initiatePoint(p01, 2, -5 + sin(Time)*10, zEyes);
-    p02 = initiatePoint(p02, -2, -5 + sin(Time)*10, zEyes);
+    p01 = initiatePoint(p01, 2, -5 + sin(Time) * 10, zEyes);
+    p02 = initiatePoint(p02, -2, -5 + sin(Time) * 10, zEyes);
     p03 = initiatePoint(p03, -4, -8, zEyes);
 
     struct Curve cMouthTop = initiateCurve(cMouthTop, p0, p01, p02, p03, r, g, b);
     bezierWithCurve(cMouthTop, resolution);
 
-    p01 = initiatePoint(p01, 2, -14 - sin(Time)*10, zEyes);
-    p02 = initiatePoint(p02, -2, -14 - sin(Time)*10, zEyes);
+    p01 = initiatePoint(p01, 2, -14 - sin(Time) * 10, zEyes);
+    p02 = initiatePoint(p02, -2, -14 - sin(Time) * 10, zEyes);
     struct Curve cMouthBottom = initiateCurve(cMouthBottom, p0, p01, p02, p03, r, g, b);
     bezierWithCurve(cMouthBottom, resolution);
-
 
     if (DepthFightingOn != 0)
     {
@@ -590,8 +585,9 @@ void Display()
     glLoadIdentity();
     glColor3f(1., 1., 1.);
     DoRasterString(5., 5., 0., "Margaux Masson - Geometric Modeling");
-
-    // swap the double-buffered framebuffers:
+    char txt[32];
+    sprintf(txt, "Resolution:%6d", resolution);
+    DoRasterString(80., 5., 0., txt);
 
     glutSwapBuffers();
 
@@ -616,27 +612,9 @@ Curve initiateCurve(Curve c, Point p0, Point p1, Point p2, Point p3, float r, fl
 Point initiatePoint(Point p, float x0, float y0, float z0)
 {
     p.x = x0;
-    p.y = y0  + sin(Time)*20;
-    p.z = z0  + Time*50;
+    p.y = y0 + sin(Time) * 20;
+    p.z = z0 + Time * 50;
     return p;
-}
-
-void bezier(struct Point p0, struct Point p1, struct Point p2, struct Point p3, float NUMPOINTS, float r, float g, float b)
-{
-    glLineWidth(3.);
-    glColor3f(r, g, b);
-    glBegin(GL_LINE_STRIP);
-    for (int it = 0; it <= NUMPOINTS; it++)
-    {
-        float t = (float)it / (float)NUMPOINTS;
-        float omt = 1.f - t;
-        float x = omt * omt * omt * p0.x + 3.f * t * omt * omt * p1.x + 3.f * t * t * omt * p2.x + t * t * t * p3.x;
-        float y = omt * omt * omt * p0.y + 3.f * t * omt * omt * p1.y + 3.f * t * t * omt * p2.y + t * t * t * p3.y;
-        float z = omt * omt * omt * p0.z + 3.f * t * omt * omt * p1.z + 3.f * t * t * omt * p2.z + t * t * t * p3.z;
-        glVertex3f(x, y, z);
-    }
-    glEnd();
-    glLineWidth(1.);
 }
 
 void bezierWithCurve(struct Curve c, float NUMPOINTS)
@@ -659,7 +637,7 @@ void bezierWithCurve(struct Curve c, float NUMPOINTS)
         glPointSize(5.0f);
         glBegin(GL_LINE_STRIP);
         {
-            glColor3f(0.6,0.6,0.6);
+            glColor3f(0.6, 0.6, 0.6);
             glVertex3f(c.p0.x, c.p0.y, c.p0.z);
             glVertex3f(c.p1.x, c.p1.y, c.p1.z);
             glVertex3f(c.p2.x, c.p2.y, c.p2.z);
@@ -730,10 +708,6 @@ void DoDepthMenu(int id)
 
     glutSetWindow(MainWindow);
     glutPostRedisplay();
-}
-void DoDistort(int id)
-{
-    Distort = (bool)id;
 }
 
 // main menu callback:
@@ -947,82 +921,6 @@ void InitGraphics()
 #endif
 }
 
-void RotateX(Point *p, float deg, float xc, float yc, float zc)
-{
-    float rad = deg * (M_PI / 180.f); // radians
-    float x = p->x0 - xc;
-    float y = p->y0 - yc;
-    float z = p->z0 - zc;
-
-    float xp = x;
-    float yp = y * cos(rad) - z * sin(rad);
-    float zp = y * sin(rad) + z * cos(rad);
-
-    p->x = xp + xc;
-    p->y = yp + yc;
-    p->z = zp + zc;
-}
-
-void RotateY(Point *p, float deg, float xc, float yc, float zc)
-{
-    float rad = deg * (M_PI / 180.f); // radians
-    float x = p->x0 - xc;
-    float y = p->y0 - yc;
-    float z = p->z0 - zc;
-
-    float xp = x * cos(rad) + z * sin(rad);
-    float yp = y;
-    float zp = -x * sin(rad) + z * cos(rad);
-
-    p->x = xp + xc;
-    p->y = yp + yc;
-    p->z = zp + zc;
-}
-
-void RotateZ(Point *p, float deg, float xc, float yc, float zc)
-{
-    float rad = deg * (M_PI / 180.f); // radians
-    float x = p->x0 - xc;
-    float y = p->y0 - yc;
-    float z = p->z0 - zc;
-
-    float xp = x * cos(rad) - y * sin(rad);
-    float yp = x * sin(rad) + y * cos(rad);
-    float zp = z;
-
-    p->x = xp + xc;
-    p->y = yp + yc;
-    p->z = zp + zc;
-}
-
-// initialize the display lists that will not change:
-// (a display list is a way to store opengl commands in
-//  memory so that they can be played back efficiently at a later time
-//  with a call to glCallList( )
-
-void InitLists()
-{
-    float dx = BOXSIZE / 2.f;
-    float dy = BOXSIZE / 2.f;
-    float dz = BOXSIZE / 2.f;
-    glutSetWindow(MainWindow);
-
-    // create the object:
-    BoxList = glGenLists(1);
-    glNewList(BoxList, GL_COMPILE);
-    MjbSphere(5, 64, 64);
-    // glutSolidCube(5);
-    glEndList();
-
-    // create the axes:
-    // AxesList = glGenLists(1);
-    // glNewList(AxesList, GL_COMPILE);
-    // glLineWidth(AXES_WIDTH);
-    // Axes(15.5);
-    // glLineWidth(1.);
-    // glEndList();
-}
-
 // the keyboard callback:
 
 void Keyboard(unsigned char c, int x, int y)
@@ -1044,10 +942,6 @@ void Keyboard(unsigned char c, int x, int y)
     case 'L':
         controlLinesEnable = !controlLinesEnable;
         break;
-    case 'n':
-    case 'N':
-        numberOfPointsEnable = !numberOfPointsEnable;
-        break;
     case 'p':
     case 'P':
         WhichProjection = PERSP;
@@ -1057,10 +951,10 @@ void Keyboard(unsigned char c, int x, int y)
         Frozen = !Frozen;
         break;
     case '+':
-        resolution = resolution + 2;
+        resolution = resolution + 1;
         break;
     case '-':
-        resolution = resolution - 2;
+        resolution = resolution - 1;
         break;
     case 'q':
     case 'Q':
