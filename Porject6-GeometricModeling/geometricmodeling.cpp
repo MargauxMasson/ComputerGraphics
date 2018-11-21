@@ -317,7 +317,7 @@ void Display()
     glLoadIdentity();
 
     // set the eye position, look-at position, and up-vector:
-    gluLookAt(0, 0, 50, 0., 0., 0., 0., 1., 0.);
+    gluLookAt(0, 0, 80, 0., 0., 0., 0., 1., 0.);
 
     // rotate the scene:
 
@@ -402,8 +402,8 @@ void Display()
     float zArm = 0;
 
     p0 = initiatePoint(p0, xFace04 - 2, -yArm04, zArm);
-    p01 = initiatePoint(p01, xArm+ sin(Time)*10, -yArm12+ sin(Time)*20, zArm);
-    p02 = initiatePoint(p02, xArm+ sin(Time)*10, yArm12+ sin(Time)*20, zArm);
+    p01 = initiatePoint(p01, xArm+ sin(Time)*10, -yArm12+ sin(Time)*20, zArm + sin(Time)*10);
+    p02 = initiatePoint(p02, xArm+ sin(Time)*10, yArm12+ sin(Time)*20, zArm + sin(Time)*10);
     p03 = initiatePoint(p03, xFace04 - 2, yArm04, zArm);
 
     struct Curve cRightArm = initiateCurve(cRightArm, p0, p01, p02, p03, r, g, b);
@@ -412,8 +412,8 @@ void Display()
 
     // Draw the circle which is the left arm of Kirby
     p0 = initiatePoint(p0, -xFace04 + 2, -yArm04, zArm);
-    p01 = initiatePoint(p01, -xArm, -yArm12+ sin(Time)*20, zArm);
-    p02 = initiatePoint(p02, -xArm, yArm12+ sin(Time)*20, zArm);
+    p01 = initiatePoint(p01, -xArm, -yArm12+ sin(Time)*20, zArm + sin(Time)*10);
+    p02 = initiatePoint(p02, -xArm, yArm12+ sin(Time)*20, zArm + sin(Time)*10);
     p03 = initiatePoint(p03, -xFace04 + 2, yArm04, zArm);
 
     struct Curve cLeftArm = initiateCurve(cLeftArm, p0, p01, p02, p03, r, g, b);
@@ -451,12 +451,12 @@ void Display()
     p01 = initiatePoint(p01, xEyes1, yEyes1 - 5, zEyes + Time * 2 );
     p02 = initiatePoint(p02, xEyes2, yEyes1 - 5, zEyes + Time * 2 );
     p03 = initiatePoint(p03, xEyes3 - 1 , yEyes0 + 5, zEyes + Time * 2 );
-    struct Curve cRightEyePupilTop = initiateCurve(cRightEyePupilTop, p0, p01, p02, p03, r,g,b);
+    struct Curve cRightEyePupilTop = initiateCurve(cRightEyePupilTop, p0, p01, p02, p03, 0.8,0.8,1);
     bezierWithCurve(cRightEyePupilTop, resolution);
 
     p01 = initiatePoint(p01, xEyes1, yEyes1 - 10, zEyes + Time * 2 );
     p02 = initiatePoint(p02, xEyes2, yEyes1 - 10, zEyes + Time * 2 );
-    struct Curve cRightEyePupilBottom = initiateCurve(cRightEyePupilBottom, p0, p01, p02, p03, r, g, b);
+    struct Curve cRightEyePupilBottom = initiateCurve(cRightEyePupilBottom, p0, p01, p02, p03, 0.8,0.8,1);
     bezierWithCurve(cRightEyePupilBottom, resolution);
 
     // Draw the circle which is the left eye of Kirby
@@ -479,13 +479,13 @@ void Display()
     p02 = initiatePoint(p02, -xEyes2, yEyes1 - 5, zEyes + Time * 2 );
     p03 = initiatePoint(p03, -xEyes3 + 1 , yEyes0 + 5, zEyes + Time * 2 );
 
-    struct Curve cLeftEyePupilTop = initiateCurve(cLeftEyePupilTop, p0, p01, p02, p03, r, g, b);
+    struct Curve cLeftEyePupilTop = initiateCurve(cLeftEyePupilTop, p0, p01, p02, p03, 0.8,0.8,1);
     bezierWithCurve(cLeftEyePupilTop, resolution);
 
     p01 = initiatePoint(p01, -xEyes1, yEyes1 - 10, zEyes + Time * 2 );
     p02 = initiatePoint(p02, -xEyes2, yEyes1 - 10, zEyes + Time * 2 );
 
-    struct Curve cLeftEyePupilBottom = initiateCurve(cLeftEyePupilBottom, p0, p01, p02, p03, r, g, b);
+    struct Curve cLeftEyePupilBottom = initiateCurve(cLeftEyePupilBottom, p0, p01, p02, p03, 0.8,0.8,1);
     bezierWithCurve(cLeftEyePupilBottom, resolution);
 
     //////////////////// Red cheeks ////////////////////
@@ -497,12 +497,12 @@ void Display()
     p02 = initiatePoint(p02, 14, 4, zEyes);
     p03 = initiatePoint(p03, 15, 0, zEyes);
 
-    struct Curve cRightCheekTop = initiateCurve(cRightCheekTop, p0, p01, p02, p03, r, g, b);
+    struct Curve cRightCheekTop = initiateCurve(cRightCheekTop, p0, p01, p02, p03, 1, 0, 0);
     bezierWithCurve(cRightCheekTop, resolution);
 
     p01 = initiatePoint(p01, 9, -4, zEyes);
     p02 = initiatePoint(p02, 14, -4, zEyes);
-    struct Curve cRightCheekBottom = initiateCurve(cRightCheekBottom, p0, p01, p02, p03, r, g, b);
+    struct Curve cRightCheekBottom = initiateCurve(cRightCheekBottom, p0, p01, p02, p03, 1, 0, 0);
     bezierWithCurve(cRightCheekBottom, resolution);
 
     // Draw the left red cheek
@@ -511,12 +511,12 @@ void Display()
     p02 = initiatePoint(p02, -14, 4, zEyes);
     p03 = initiatePoint(p03, -15, 0, zEyes);
 
-    struct Curve cLeftCheekTop = initiateCurve(cLeftCheekTop, p0, p01, p02, p03, r, g, b);
+    struct Curve cLeftCheekTop = initiateCurve(cLeftCheekTop, p0, p01, p02, p03, 1, 0, 0);
     bezierWithCurve(cLeftCheekTop, resolution);
 
     p01 = initiatePoint(p01, -9, -4, zEyes);
     p02 = initiatePoint(p02, -14, -4, zEyes);
-    struct Curve cLeftCheekBottom = initiateCurve(cLeftCheekBottom, p0, p01, p02, p03, r, g, b);
+    struct Curve cLeftCheekBottom = initiateCurve(cLeftCheekBottom, p0, p01, p02, p03, 1, 0, 0);
     bezierWithCurve(cLeftCheekBottom, resolution);
 
     /////////////////// FEET /////////////////
@@ -524,8 +524,8 @@ void Display()
     /////////////////// FEET /////////////////
     // Draw the circle which is the right foot of Kirby
     p0 = initiatePoint(p0, 2, -22, 0);
-    p01 = initiatePoint(p01, 10, -40, 0);
-    p02 = initiatePoint(p02, 14, -40, 0);
+    p01 = initiatePoint(p01, 10 + Time*10, -40 - sin(Time)*10, 0 + sin(Time)*10);
+    p02 = initiatePoint(p02, 14 + Time*10, -40 - sin(Time)*10, 0 + sin(Time)*10);
     p03 = initiatePoint(p03, 17, -14, 0);
 
     struct Curve cRightFootTop = initiateCurve(cRightFootTop, p0, p01, p02, p03, r, g, b);
@@ -533,8 +533,8 @@ void Display()
 
     // Draw the circle which is the left foot of Kirby
     p0 = initiatePoint(p0, -2, -22, 0);
-    p01 = initiatePoint(p01, -10, -40, 0);
-    p02 = initiatePoint(p02, -14, -40, 0);
+    p01 = initiatePoint(p01, -10 - Time*10, -40 - sin(Time)*10, 0+ sin(Time)*10);
+    p02 = initiatePoint(p02, -14 - Time*10, -40 - sin(Time)*10, 0+ sin(Time)*10);
     p03 = initiatePoint(p03, -17, -14, 0);
 
     struct Curve cRightFootBottom = initiateCurve(cRightFootBottom, p0, p01, p02, p03, r, g, b);
@@ -615,9 +615,9 @@ Curve initiateCurve(Curve c, Point p0, Point p1, Point p2, Point p3, float r, fl
 
 Point initiatePoint(Point p, float x0, float y0, float z0)
 {
-    p.x = x0  + sin(Time*20) * 5 ;
-    p.y = y0  + sin(Time*10) * 10 ;
-    p.z = z0  + sin(Time*10) * 10  ;
+    p.x = x0;
+    p.y = y0  + sin(Time)*20;
+    p.z = z0  + Time*50;
     return p;
 }
 
