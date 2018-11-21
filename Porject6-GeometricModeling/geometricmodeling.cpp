@@ -168,7 +168,7 @@ struct Curve
 Curve Curves[10]; // if you are creating a pattern of curves
 Curve Stem;       // if you are not
 
-#define MS_PER_CYCLE 1000
+#define MS_PER_CYCLE 2000
 // function prototypes:
 
 void Animate();
@@ -459,15 +459,15 @@ void Display()
     bezierWithCurve(cRightEyeBottom, resolution);
 
     // Pupil Right
-    p0 = initiatePoint(p0, xEyes0 + 1, yEyes0 + 5, zEyes);
-    p01 = initiatePoint(p01, xEyes1, yEyes1 - 5, zEyes);
-    p02 = initiatePoint(p02, xEyes2, yEyes1 - 5, zEyes);
-    p03 = initiatePoint(p03, xEyes3 - 1 , yEyes0 + 5, zEyes);
+    p0 = initiatePoint(p0, xEyes0 + 1, yEyes0 + 5, zEyes + Time * 2 );
+    p01 = initiatePoint(p01, xEyes1, yEyes1 - 5, zEyes + Time * 2 );
+    p02 = initiatePoint(p02, xEyes2, yEyes1 - 5, zEyes + Time * 2 );
+    p03 = initiatePoint(p03, xEyes3 - 1 , yEyes0 + 5, zEyes + Time * 2 );
     struct Curve cRightEyePupilTop = initiateCurve(cRightEyePupilTop, p0, p01, p02, p03, r,g,b);
     bezierWithCurve(cRightEyePupilTop, resolution);
 
-    p01 = initiatePoint(p01, xEyes1, yEyes1 - 10, zEyes);
-    p02 = initiatePoint(p02, xEyes2, yEyes1 - 10, zEyes);
+    p01 = initiatePoint(p01, xEyes1, yEyes1 - 10, zEyes + Time * 2 );
+    p02 = initiatePoint(p02, xEyes2, yEyes1 - 10, zEyes + Time * 2 );
     struct Curve cRightEyePupilBottom = initiateCurve(cRightEyePupilBottom, p0, p01, p02, p03, r, g, b);
     bezierWithCurve(cRightEyePupilBottom, resolution);
 
@@ -486,10 +486,10 @@ void Display()
     bezierWithCurve(cLeftEyeBottom, resolution);
 
     // Pupil left
-    p0 = initiatePoint(p0, -xEyes0 - 1, yEyes0 + 5, zEyes);
-    p01 = initiatePoint(p01, -xEyes1, yEyes1 - 5, zEyes);
-    p02 = initiatePoint(p02, -xEyes2, yEyes1 - 5, zEyes);
-    p03 = initiatePoint(p03, -xEyes3 + 1 , yEyes0 + 5, zEyes);
+    p0 = initiatePoint(p0, -xEyes0 - 1, yEyes0 + 5, zEyes + Time * 2 );
+    p01 = initiatePoint(p01, -xEyes1, yEyes1 - 5, zEyes + Time * 2 );
+    p02 = initiatePoint(p02, -xEyes2, yEyes1 - 5, zEyes + Time * 2 );
+    p03 = initiatePoint(p03, -xEyes3 + 1 , yEyes0 + 5, zEyes + Time * 2 );
 
     struct Curve cRightLeftPupilTop = initiateCurve(cRightLeftPupilTop, p0, p01, p02, p03, r, g, b);
     bezierWithCurve(cRightLeftPupilTop, resolution);
@@ -614,9 +614,9 @@ Curve initiateCurve(Curve c, Point p0, Point p1, Point p2, Point p3, float r, fl
 
 Point initiatePoint(Point p, float x0, float y0, float z0)
 {
-    p.x = x0;
-    p.y = y0;
-    p.z = z0;
+    p.x = x0  + sin(Time*20) * 5 ;
+    p.y = y0  + sin(Time*10) * 8 ;
+    p.z = z0  + sin(Time*10) * 20  ;
     return p;
 }
 
@@ -658,7 +658,7 @@ void bezierWithCurve(struct Curve c, float NUMPOINTS)
         glPointSize(5.0f);
         glBegin(GL_LINE_STRIP);
         {
-            glColor3f(0, 0, 1);
+            glColor3f(1,1, 1);
             glVertex3f(c.p0.x, c.p0.y, c.p0.z);
             glVertex3f(c.p1.x, c.p1.y, c.p1.z);
             glVertex3f(c.p2.x, c.p2.y, c.p2.z);
@@ -678,16 +678,6 @@ void bezierWithCurve(struct Curve c, float NUMPOINTS)
         float y = omt * omt * omt * c.p0.y + 3.f * t * omt * omt * c.p1.y + 3.f * t * t * omt * c.p2.y + t * t * t * c.p3.y;
         float z = omt * omt * omt * c.p0.z + 3.f * t * omt * omt * c.p1.z + 3.f * t * t * omt * c.p2.z + t * t * t * c.p3.z;
         glVertex3f(x, y, z);
-
-        // if (numberOfPointsEnable) {
-        // glColor3f(0,1,0);
-        // glPointSize(5.0f);
-        // glBegin(GL_POINTS);
-        //     {
-        //         glVertex3f(x, y, z);
-        //     }
-        // glEnd();
-        // }
     }
     glEnd();
     glLineWidth(1.);
