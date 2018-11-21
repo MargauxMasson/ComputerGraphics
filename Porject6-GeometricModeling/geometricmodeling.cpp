@@ -361,21 +361,9 @@ void Display()
     struct Point p01;
     struct Point p02;
     struct Point p03;
-    struct Point p1;
-    struct Point p2;
-    struct Point p3;
-    struct Point p4;
+
     float r, g, b;
-    float teta = 0;
-    float radiusKirbyFace = 20;
-    float radiusKirbyArm = 6;
-    float radiusKirbyEye = 6;
-    float radiusKirbyRedCheeks = 2;
-    float radiusKirbyMouth = 3;
-    float centerEyeAndFeetX = 5;
-    float centerEyeY = 8;
-    float centerFeetY = -27;
-    float centerMouthY = -6;
+
 
     // Kirby is pink
     r = 0.5;
@@ -414,8 +402,8 @@ void Display()
     float zArm = 0;
 
     p0 = initiatePoint(p0, xFace04 - 2, -yArm04, zArm);
-    p01 = initiatePoint(p01, xArm, -yArm12, zArm);
-    p02 = initiatePoint(p02, xArm, yArm12, zArm);
+    p01 = initiatePoint(p01, xArm+ sin(Time)*10, -yArm12+ sin(Time)*20, zArm);
+    p02 = initiatePoint(p02, xArm+ sin(Time)*10, yArm12+ sin(Time)*20, zArm);
     p03 = initiatePoint(p03, xFace04 - 2, yArm04, zArm);
 
     struct Curve cRightArm = initiateCurve(cRightArm, p0, p01, p02, p03, r, g, b);
@@ -424,8 +412,8 @@ void Display()
 
     // Draw the circle which is the left arm of Kirby
     p0 = initiatePoint(p0, -xFace04 + 2, -yArm04, zArm);
-    p01 = initiatePoint(p01, -xArm, -yArm12, zArm);
-    p02 = initiatePoint(p02, -xArm, yArm12, zArm);
+    p01 = initiatePoint(p01, -xArm, -yArm12+ sin(Time)*20, zArm);
+    p02 = initiatePoint(p02, -xArm, yArm12+ sin(Time)*20, zArm);
     p03 = initiatePoint(p03, -xFace04 + 2, yArm04, zArm);
 
     struct Curve cLeftArm = initiateCurve(cLeftArm, p0, p01, p02, p03, r, g, b);
@@ -544,15 +532,15 @@ void Display()
     ///////////// MOUTH //////////////////
     // Draw the circle which is the mouth of Kirby
     p0 = initiatePoint(p0, 4, -8, zEyes);
-    p01 = initiatePoint(p01, 2, -5, zEyes);
-    p02 = initiatePoint(p02, -2, -5, zEyes);
+    p01 = initiatePoint(p01, 2, -5 + sin(Time)*10, zEyes);
+    p02 = initiatePoint(p02, -2, -5 + sin(Time)*10, zEyes);
     p03 = initiatePoint(p03, -4, -8, zEyes);
 
     struct Curve cMouthTop = initiateCurve(cMouthTop, p0, p01, p02, p03, r, g, b);
     bezierWithCurve(cMouthTop, resolution);
 
-    p01 = initiatePoint(p01, 2, -14, zEyes);
-    p02 = initiatePoint(p02, -2, -14, zEyes);
+    p01 = initiatePoint(p01, 2, -14 - sin(Time)*10, zEyes);
+    p02 = initiatePoint(p02, -2, -14 - sin(Time)*10, zEyes);
     struct Curve cMouthBottom = initiateCurve(cMouthBottom, p0, p01, p02, p03, r, g, b);
     bezierWithCurve(cMouthBottom, resolution);
 
@@ -615,8 +603,8 @@ Curve initiateCurve(Curve c, Point p0, Point p1, Point p2, Point p3, float r, fl
 Point initiatePoint(Point p, float x0, float y0, float z0)
 {
     p.x = x0  + sin(Time*20) * 5 ;
-    p.y = y0  + sin(Time*10) * 8 ;
-    p.z = z0  + sin(Time*10) * 20  ;
+    p.y = y0  + sin(Time*10) * 10 ;
+    p.z = z0  + sin(Time*10) * 10  ;
     return p;
 }
 
