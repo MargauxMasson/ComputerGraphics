@@ -17,7 +17,7 @@
 #include "glut.h"
 
 float Time;
-int resolution = 10;
+int resolution = 20;
 
 // title of these windows:
 
@@ -175,6 +175,7 @@ void Display();
 Point initiatePoint(Point, float, float, float);
 Curve initiateCurve(Curve, Point, Point, Point, Point, float, float, float);
 void bezierWithCurve(struct Curve, float);
+void DoBezierMenu(int);
 void DoAxesMenu(int);
 void DoColorMenu(int);
 void DoDepthBufferMenu(int);
@@ -662,6 +663,19 @@ void bezierWithCurve(struct Curve c, float NUMPOINTS)
     glLineWidth(1.);
 }
 
+void DoBezierMenu(int id) 
+   {
+    if (id == 0) {
+        controlPointsEnable = !controlPointsEnable;
+    }
+    if (id == 1) {
+        controlLinesEnable = !controlLinesEnable;
+    }
+
+    glutSetWindow(MainWindow);
+    glutPostRedisplay(); 
+}
+
 void DoAxesMenu(int id)
 {
     AxesOn = id;
@@ -801,6 +815,10 @@ void InitMenus()
         glutAddMenuEntry(ColorNames[i], i);
     }
 
+    int beziermenu = glutCreateMenu(DoBezierMenu);
+	glutAddMenuEntry( "Control points",  0 );
+	glutAddMenuEntry( "Control lines",  1 );
+
     int axesmenu = glutCreateMenu(DoAxesMenu);
     glutAddMenuEntry("Off", 0);
     glutAddMenuEntry("On", 1);
@@ -826,6 +844,7 @@ void InitMenus()
     glutAddMenuEntry("Perspective", PERSP);
 
     int mainmenu = glutCreateMenu(DoMainMenu);
+    glutAddSubMenu("Bezier", beziermenu);
     glutAddSubMenu("Axes", axesmenu);
     glutAddSubMenu("Colors", colormenu);
     glutAddSubMenu("Depth Buffer", depthbuffermenu);
