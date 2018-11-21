@@ -317,7 +317,7 @@ void Display()
     glLoadIdentity();
 
     // set the eye position, look-at position, and up-vector:
-    gluLookAt(50, 40, 30, 0., 0., 0., 0., 1., 0.);
+    gluLookAt(0, 0, 50, 0., 0., 0., 0., 1., 0.);
 
     // rotate the scene:
 
