@@ -479,11 +479,11 @@ void Display()
     p02 = initiatePoint(p02, -xEyes2, yEyes1 - 5, zEyes + Time * 2 );
     p03 = initiatePoint(p03, -xEyes3 + 1 , yEyes0 + 5, zEyes + Time * 2 );
 
-    struct Curve cRightLeftPupilTop = initiateCurve(cRightLeftPupilTop, p0, p01, p02, p03, r, g, b);
-    bezierWithCurve(cRightLeftPupilTop, resolution);
+    struct Curve cLeftEyePupilTop = initiateCurve(cLeftEyePupilTop, p0, p01, p02, p03, r, g, b);
+    bezierWithCurve(cLeftEyePupilTop, resolution);
 
-    p01 = initiatePoint(p01, -xEyes1, yEyes1 - 10, zEyes);
-    p02 = initiatePoint(p02, -xEyes2, yEyes1 - 10, zEyes);
+    p01 = initiatePoint(p01, -xEyes1, yEyes1 - 10, zEyes + Time * 2 );
+    p02 = initiatePoint(p02, -xEyes2, yEyes1 - 10, zEyes + Time * 2 );
 
     struct Curve cLeftEyePupilBottom = initiateCurve(cLeftEyePupilBottom, p0, p01, p02, p03, r, g, b);
     bezierWithCurve(cLeftEyePupilBottom, resolution);
@@ -523,9 +523,22 @@ void Display()
     /////////////////// FEET /////////////////
     /////////////////// FEET /////////////////
     // Draw the circle which is the right foot of Kirby
+    p0 = initiatePoint(p0, 2, -22, 0);
+    p01 = initiatePoint(p01, 10, -40, 0);
+    p02 = initiatePoint(p02, 14, -40, 0);
+    p03 = initiatePoint(p03, 17, -14, 0);
+
+    struct Curve cRightFootTop = initiateCurve(cRightFootTop, p0, p01, p02, p03, r, g, b);
+    bezierWithCurve(cRightFootTop, resolution);
 
     // Draw the circle which is the left foot of Kirby
+    p0 = initiatePoint(p0, -2, -22, 0);
+    p01 = initiatePoint(p01, -10, -40, 0);
+    p02 = initiatePoint(p02, -14, -40, 0);
+    p03 = initiatePoint(p03, -17, -14, 0);
 
+    struct Curve cRightFootBottom = initiateCurve(cRightFootBottom, p0, p01, p02, p03, r, g, b);
+    bezierWithCurve(cRightFootBottom, resolution);
 
     ///////////// MOUTH //////////////////
     ///////////// MOUTH //////////////////
@@ -630,7 +643,7 @@ void bezierWithCurve(struct Curve c, float NUMPOINTS)
 {
     if (controlPointsEnable)
     {
-        glColor3f(1, 1, 0);
+        glColor3f(1, 0, 0);
         glPointSize(5.0f);
         glBegin(GL_POINTS);
         {
@@ -646,7 +659,7 @@ void bezierWithCurve(struct Curve c, float NUMPOINTS)
         glPointSize(5.0f);
         glBegin(GL_LINE_STRIP);
         {
-            glColor3f(1,1, 1);
+            glColor3f(0.6,0.6,0.6);
             glVertex3f(c.p0.x, c.p0.y, c.p0.z);
             glVertex3f(c.p1.x, c.p1.y, c.p1.z);
             glVertex3f(c.p2.x, c.p2.y, c.p2.z);
