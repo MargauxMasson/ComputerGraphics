@@ -22,6 +22,21 @@ GLSLProgram *Pattern;
 float Time;
 #include "sphere.cpp"
 
+#include <time.h>
+
+#define GRID 500
+#define DAMP 50
+
+float water[2][GRID][GRID];
+
+int spin_x, spin_y, spin_z; 
+int h, w;					
+int old_x, old_y, move_z;
+int b = 0, f = 1;
+
+GLfloat diffuse0[]={1.0,1.0,1.0,1.0};
+GLfloat ambient0[]={1.0,1.0,1.0,1.0};
+
 // title of these windows:
 
 const char *WINDOWTITLE = {"Project 5 - Shaders"};
@@ -245,6 +260,36 @@ void Animate()
     glutPostRedisplay();
 }
 
+void calcwater() {
+	int x, y;
+	float n;
+	for(y = 1; y < GRID-1; y++) {
+		for(x = 1; x < GRID-1; x++) {
+			n = ( water[b][x-1][y] +
+				  water[b][x+1][y] + 
+				  water[b][x][y-1] + 
+				  water[b][x][y+1]
+				  ) /2;
+			n -= water[f][x][y];
+	  		n = n - (n / DAMP);
+			water[f][x][y] = n;
+		}
+	}
+}
+
+
+void reshape(int width, int height) {
+	w = width;
+	h = height;
+
+	glViewport(0, 0, width, height);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(60.0, (GLfloat) w/(GLfloat) h, 1.0, 1000.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity ();
+}
+
 // draw the complete scene:
 
 void Display()
@@ -365,13 +410,38 @@ void Display()
 
 	Pattern->SetUniformVariable((char *)"uShininess",(float)1);
 	Pattern->SetUniformVariable((char *)"uSize",(float)8);
+	glPushMatrix();
+	
+    glTranslatef(0, 0, spin_z-300);
+	glRotatef(spin_x, 0, 1, 0);
+	glRotatef(spin_y-60, 1, 0, 0);
+    int i, j, tmp;
+	glPointSize(1.0);
+	
+    calcwater();
+	
+	glBegin(GL_POINTS);
+	for(i = 0; i < GRID; i++) {
+		for(j = 0; j < GRID; j++) {
+			glVertex3f(i-GRID/2, j-GRID/2, water[f][i][j]);
+		}
+	}
+	glEnd();
 
-    glBegin(GL_POLYGON); 
-        glVertex3f(0.0, 0.0, 0.0); 
-        glVertex3f(20.0, 0.0, 0.0); 
-        glVertex3f(20.0, 0.0, 20.0); 
-        glVertex3f(0.0, 0.0, 20.0); 
-    glEnd();
+	tmp = b; b = f; f = tmp;
+
+    // glBegin(GL_POLYGON); 
+    //     glVertex3f(0.0, 0.0, 0.0); 
+    //     glVertex3f(10.0, 0.0, 0.0); 
+    //     glVertex3f(10.0, 0.0, 10.0); 
+    //     glVertex3f(0.0, 0.0, 10.0); 
+    // glEnd();
+    // glBegin(GL_POLYGON); 
+    //     glVertex3f(10.0, 0.0, 0.0); 
+    //     glVertex3f(20.0, 0.0, 0.0); 
+    //     glVertex3f(20.0, 0.0, 20.0); 
+    //     glVertex3f(10.0, 0.0, 20.0); 
+    // glEnd();
     Pattern->Use( 0 ); // go back to fixed-function OpenGL
 
     // draw the current object:

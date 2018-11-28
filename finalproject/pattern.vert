@@ -20,9 +20,11 @@ void main( )
 	// to the eye position
 	
 	vec3 vert = gl_Vertex.xyz;
-	vert.x = vert.x + vert.x*5*uDistortion*sin(uTime) - vert.x*3*uDistortion*cos(uTime) + vert.z*abs(sin(1000*uTime*uDistortion));
-	vert.y =  vert.y + vert.y*5*uDistortion*sin(uTime) - vert.y*3*uDistortion*cos(uTime);
-	vert.z = vert.z + vert.z*5*uDistortion*sin(uTime) - vert.z*3*uDistortion*cos(uTime);
+	// vert.x = vert.x + vert.x*5*uDistortion*sin(uTime) - vert.x*3*uDistortion*cos(uTime) + vert.z*abs(sin(1000*uTime*uDistortion));
+	// vert.y =  vert.y + vert.x*5*uDistortion*sin(uTime) + vert.z*5*uDistortion*sin(uTime) ;
+	vert.y = vert.y+2*abs(sin(1000*uTime*uDistortion))*fract(sin(dot(vec2(vert.x*abs(sin(1000*uTime*uDistortion)),vert.z*abs(sin(1000*uTime*uDistortion))),vec2(12.9898,78.233)))*43758.5453);
+
+	// vert.z = vert.z + vert.z*5*uDistortion*sin(uTime) - vert.z*3*uDistortion*cos(uTime);
 
 	gl_Position = gl_ModelViewProjectionMatrix * vec4( vert, 1. );
 }
