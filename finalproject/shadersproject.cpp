@@ -243,21 +243,28 @@ int main(int argc, char *argv[])
 // this is typically where animation parameters are set
 //
 // do not call Display( ) from here -- let glutMainLoop( ) do it
+int num  = 0;
+int delay = 50;
 
 void Animate()
 {
-    if (!Frozen)
-    {
-        // put animation stuff in here -- change some global variables
-        // for Display( ) to find:
-        int ms = glutGet(GLUT_ELAPSED_TIME);
-        ms %= MS_PER_CYCLE;
-        Time = (float)ms / (float)MS_PER_CYCLE; // [0.,1.)
-    }
-    // force a call to Display( ) next time it is convenient:
+    // if (!Frozen)
+    // {
+    //     // put animation stuff in here -- change some global variables
+    //     // for Display( ) to find:
+    //     int ms = glutGet(GLUT_ELAPSED_TIME);
+    //     ms %= MS_PER_CYCLE;
+    //     Time = (float)ms / (float)MS_PER_CYCLE; // [0.,1.)
+    // }
+    // // force a call to Display( ) next time it is convenient:
 
-    glutSetWindow(MainWindow);
-    glutPostRedisplay();
+    // glutSetWindow(MainWindow);
+    // glutPostRedisplay();
+    if(!(++num %delay)) {
+		water[f][rand()%GRID][rand()%GRID] = -rand()%200;
+		delay=delay%rand();
+	}
+	glutPostRedisplay();
 }
 
 void calcwater() {
@@ -343,7 +350,7 @@ void Display()
     glLoadIdentity();
 
     // set the eye position, look-at position, and up-vector:
-    gluLookAt(50, 40, 30, 0., 0., 0., 0., 1., 0.);
+    // gluLookAt(50, 40, 30, 0., 0., 0., 0., 1., 0.);
 
     // rotate the scene:
 
