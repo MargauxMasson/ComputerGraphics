@@ -23,10 +23,10 @@ void main( ) {
 	vec3 Eye = normalize(vE);
 
 	vec3 myColor = uColor;
-	if(uAnimation && vST.t + fract(sin(uTime)) > 0.8 && vST.s + fract(sin(uTime)) > 0.8)
+	if(uAnimation)
 	{
 		myColor = vec3(uTime, uTime/10, 0.2);
-		myColor = vec3( vST.s*uTime, vST.s*uTime, uTime );
+		// myColor = vec3( vST.s*uTime, vST.s*uTime, uTime );
 	} 
 
 	vec3 ambient = uKa * myColor;

@@ -24,8 +24,8 @@ float Time;
 
 #include <time.h>
 
-#define GRID 500
-#define DAMP 50
+#define GRID 100
+#define DAMP 20
 
 float water[2][GRID][GRID];
 
@@ -350,7 +350,7 @@ void Display()
     glLoadIdentity();
 
     // set the eye position, look-at position, and up-vector:
-    // gluLookAt(50, 40, 30, 0., 0., 0., 0., 1., 0.);
+    gluLookAt(50, 40, 30, 0., 0., 0., 0., 1., 0.);
 
     // rotate the scene:
 
@@ -419,9 +419,9 @@ void Display()
 	Pattern->SetUniformVariable((char *)"uSize",(float)8);
 	glPushMatrix();
 	
-    glTranslatef(0, 0, spin_z-300);
-	glRotatef(spin_x, 0, 1, 0);
-	glRotatef(spin_y-60, 1, 0, 0);
+    // glTranslatef(0, 0, spin_z-300);
+	// glRotatef(spin_x, 0, 1, 0);
+	// glRotatef(spin_y-60, 1, 0, 0);
     int i, j, tmp;
 	glPointSize(1.0);
 	
@@ -434,21 +434,30 @@ void Display()
 		}
 	}
 	glEnd();
-
+	// glBegin(GL_POLYGON);
+	// for(i = 0; i < GRID; i++) {
+	// 	for(j = 0; j < GRID; j++) {
+	// 		glVertex3f(i-GRID/2, j-GRID/2, water[f][i][j]);
+	// 		glVertex3f(i-GRID/2, j-GRID/2, water[f][i][j]);
+	// 		glVertex3f(i-GRID/2, j-GRID/2, water[f][i][j]);
+	// 		glVertex3f(i-GRID/2, j-GRID/2, water[f][i][j]);
+	// 	}
+	// }
+	// glEnd();
 	tmp = b; b = f; f = tmp;
-
-    // glBegin(GL_POLYGON); 
-    //     glVertex3f(0.0, 0.0, 0.0); 
-    //     glVertex3f(10.0, 0.0, 0.0); 
-    //     glVertex3f(10.0, 0.0, 10.0); 
-    //     glVertex3f(0.0, 0.0, 10.0); 
-    // glEnd();
-    // glBegin(GL_POLYGON); 
-    //     glVertex3f(10.0, 0.0, 0.0); 
-    //     glVertex3f(20.0, 0.0, 0.0); 
-    //     glVertex3f(20.0, 0.0, 20.0); 
-    //     glVertex3f(10.0, 0.0, 20.0); 
-    // glEnd();
+	// for(int m = 0; m < 10; m++) {
+    //     glBegin(GL_TRIANGLE_STRIP); 
+    //         glVertex3f(0.0, 0.0, 0.0+i/2); 
+    //         glVertex3f(10.0-i, 0.0+i/2, 0.0); 
+    //         glVertex3f(10.0, 0.0, 10.0+i); 
+    //     glEnd();
+    // }
+    glBegin(GL_POLYGON); 
+        glVertex3f(10.0, 0.0, 0.0); 
+        glVertex3f(20.0, 0.0, 0.0); 
+        glVertex3f(20.0, 0.0, 20.0); 
+        glVertex3f(10.0, 0.0, 20.0); 
+    glEnd();
     Pattern->Use( 0 ); // go back to fixed-function OpenGL
 
     // draw the current object:
